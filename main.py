@@ -30,7 +30,8 @@ def procesar():
 
     if not os.path.exists("Logs procesados"):
         os.mkdir("Logs procesados")
-    print("hola")
+
+    #Dividir
 
 
 # Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
