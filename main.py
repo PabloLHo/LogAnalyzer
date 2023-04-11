@@ -1,6 +1,7 @@
 import urllib3
 import os
-
+import parser.py
+import pickle
 
 # Obtiene los logs de un servidor web
 def obtenerLogs(url):
@@ -24,14 +25,17 @@ def obtenerLogs(url):
 
 
 # Trabaja con los logs del directorio para realizar un preprocesamiento del mismo obteniendo los datos del mismo
-def procesar():
+def procesar(path):
     if not os.path.exists("Logs") or len(os.listdir("Logs")) == 0:
         print("Lanzar error")
 
     if not os.path.exists("Logs procesados"):
         os.mkdir("Logs procesados")
 
-    #Dividir
+    with open('Logs/' + path, 'r') as f:
+        content = f.read()
+    procesado = parser.definirPerfiles(content)
+    pickle.dump(procesado, "Logs procesados/" + path)
 
 
 # Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
@@ -49,6 +53,6 @@ if __name__ == '__main__':
     if len(os.listdir("Logs")) == 0:
         obtenerLogs(path)
 
-    procesar()
+    procesar(path)
     analisis()
 
