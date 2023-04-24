@@ -1,4 +1,4 @@
-# Log_Analyzer
+# LogAnalyzer
 
 Analizador de logs de la web. Proyecto de prácticas de la asignatura Minería Web.
 
@@ -16,7 +16,7 @@ Si se desea, se puede ejecutar el código en local. Para ello, tan solo se deben
 
 ```bash
 gh repo clone plh00004/log_analyzer
-cd log_analyzer
+cd LogAnalyzer
 python app.py
 ```
 
