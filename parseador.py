@@ -5,8 +5,8 @@ def definirPerfiles(cadena):
     for linea in cadena.split("\n"):
         ip = linea.split(' - ')[0]
         if ip not in perfiles.keys():
-            perfiles[ip] = {'entradas': list()}
-        perfiles[ip]['entradas'].append(linea[(len(ip) + 1):])
+            perfiles[ip] = list()
+        perfiles[ip].append(linea[(len(ip) + 1):])
 
     return perfiles
 
@@ -31,15 +31,15 @@ def procesarPerfil(ip, perfiles):
 
     nuevaLista = list()
 
-    for linea in perfiles[ip]['entradas']:
+    for linea in perfiles[ip]:
         nuevaLista.append(procesarLinea(linea))
 
-    perfiles[ip]['entradas'] = nuevaLista
+    perfiles[ip] = nuevaLista
 
 
 def procesarLog(fichero):
 
-    with open(fichero, encoding='utf8') as f:
+    with open("Logs/" + fichero, encoding='utf8') as f:
         cadena = f.read()
 
     toRet = definirPerfiles(cadena)

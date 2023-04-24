@@ -13,14 +13,14 @@ def procesar(path):
         os.mkdir("Logs procesados")
 
     proc = parseador.procesarLog(path)
-    print(len(proc))
     proc = procesado.eliminarBots(proc)
-    print(len(proc))
     proc = procesado.definirTiempos(proc)
     proc = procesado.identificarUsuarios(proc)
     tiempoCorte = 1800
     proc = procesado.definirSesiones(proc, tiempoCorte)
-    pickle.dump(proc, "Logs procesados/" + path)
+    print(proc)
+    fichero_indice = open("Logs procesados/" + path, "wb")
+    pickle.dump(proc, fichero_indice)
 
 
 # Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
@@ -31,7 +31,7 @@ def analisis():
 
 if __name__ == '__main__':
     # Recibirlo por flask
-    path = "Logs/NASA_access_log_REDUC.txt"
+    path = "NASA_access_log_REDUC.txt"
 
     if not os.path.exists("Logs"):
         os.mkdir("Logs")
