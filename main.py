@@ -32,6 +32,7 @@ def analizacion(path):
 
     procesados = pickle.load(fichero_procesado)
     visitasPagina, totalPaginas, usuariosPaginas = analisis.paginasVisitadas(procesados)
+    actualizadoSesiones = analisis.tiemposSesion(procesados)
     print("hola")
 
 

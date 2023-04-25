@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def obtencionMedias(content):
     print("hola")
 
@@ -51,3 +53,19 @@ def paginasVisitadas(content):
 
     totalVisitas = dict(sorted(totalVisitas.items(), key=lambda item: item[1], reverse=True))
     return paginasVisitadas,totalVisitas, res
+
+
+def tiemposSesion(content):
+
+    for host in content:
+        for usuario in content[host]:
+            tiempoTotal = 0
+            for sesion in content[host][usuario]["sesion"]:
+                inicio = datetime.strptime(content[host][usuario]["sesion"][sesion][0]["fechaHora"], '%d/%b/%Y:%H:%M:%S')
+                fin = datetime.strptime(content[host][usuario]["sesion"][sesion][len(content[host][usuario]["sesion"][sesion]) - 1]["fechaHora"], '%d/%b/%Y:%H:%M:%S')
+                tiempo = (fin - inicio).total_seconds()
+                tiempoTotal += tiempo
+                content[host][usuario]["sesion"][sesion] = {"tiempoSesion": 0, "visitas": content[host][usuario]["sesion"][sesion]}
+                content[host][usuario]["sesion"][sesion]["tiempoSesion"] = tiempo
+            content[host][usuario]["TiempoMedioSesion"] = tiempoTotal / len(content[host][usuario]["sesion"])
+    return content
