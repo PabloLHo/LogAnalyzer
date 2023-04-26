@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="5efcd55d-5515-4f01-897a-b3ccd1354243" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dependencias/analisis.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dependencias/parseador.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dependencias/procesado.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/bootstrap/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/bootstrap/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-brands-400.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-brands-400.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-brands-400.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-brands-400.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-brands-400.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-regular-400.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-regular-400.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-regular-400.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-regular-400.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-regular-400.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-solid-900.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-solid-900.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-solid-900.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-solid-900.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fa-solid-900.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/fonts/fontawesome-all.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/avatars/avatar1.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/avatars/avatar2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/avatars/avatar3.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/avatars/avatar4.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/avatars/avatar5.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/dogs/image2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js/bs-init.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js/chart.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js/theme.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/registros.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/reglas.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/sesion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/sesiones.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ficheros/analisis.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ficheros/analisis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ficheros/analisis.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ficheros/parseador.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ficheros/procesado.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,18 +66,27 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2OsrOEarsRQSlPrXXjP2vwAHonf" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RunManager" selected="Python.main">
     <configuration name="MW" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="MW" />
@@ -49,6 +100,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -70,6 +122,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -97,8 +150,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1682360096259</updated>
+      <workItem from="1682496938857" duration="46000" />
+      <workItem from="1682497162161" duration="3384000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -110,5 +168,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
