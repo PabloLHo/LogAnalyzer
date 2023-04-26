@@ -9,14 +9,14 @@ def definirPerfiles(cadena):
         ip = linea.split(' - ')[0]
         if ip not in perfiles.keys():
             perfiles[ip] = list()
-        perfiles[ip].append(linea[(len(ip) + 1):])
+        perfiles[ip].append(linea)
 
     return perfiles
 
 
 def procesarLinea(linea):
 
-    campos = ['password', 'usuario', 'fechaHora', 'offset', 'metodo', 'pagina', 'protocolo', 'resultado', 'tam', 'url', 'cliente', 'ip2', 'responseTime']
+    campos = ['host', 'password', 'usuario', 'fechaHora', 'offset', 'metodo', 'pagina', 'protocolo', 'resultado', 'tam', 'url', 'cliente', 'ip2', 'responseTime']
     sep = linea.split('\"')
     parte1 = ''.join(sep[0:2])
 

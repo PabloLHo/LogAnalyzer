@@ -1,9 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from jinja2.utils import markupsafe
-import dependencias.parseador as parseador
 import dependencias.analisis as analisis
 import dependencias.procesado as procesado
-import pickle
 import os
 
 app = Flask(__name__)

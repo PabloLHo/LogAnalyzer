@@ -1,7 +1,26 @@
 from datetime import datetime
 import os
+import pickle
 import dependencias.parseador as parseador
 
+# Trabaja con los logs del directorio para realizar un preprocesamiento del mismo obteniendo los datos del mismo
+def procesar(path):
+    if not os.path.exists("Logs") or len(os.listdir("Logs")) == 0:
+        print("Lanzar error")
+
+    if not os.path.exists("Logs procesados"):
+        os.mkdir("Logs procesados")
+
+    proc = parseador.procesarLog(path)
+    proc = limitarExtensiones(proc, ("html", "htm", "pdf", "asp", "exe", "txt", "doc", "ppt", "xls", "xml", ""))
+    proc = eliminarBots(proc)
+    proc = definirTiempos(proc)
+    proc = identificarUsuarios(proc)
+    tiempoCorte = 1800
+    proc = definirSesiones(proc, tiempoCorte)
+    path = path.split("/")[len(path.split("/")) - 1]
+    fichero_indice = open("Logs procesados/" + path, "wb")
+    pickle.dump(proc, fichero_indice)
 
 def definirTiempos(content):
     minimaFecha = content[next(iter(content))][0]["fechaHora"]
@@ -87,22 +106,3 @@ def limitarExtensiones(content, extensiones):
             if extension in extensiones:
                 res[host].append(content[host][visita])
     return res
-
-
-# Trabaja con los logs del directorio para realizar un preprocesamiento del mismo obteniendo los datos del mismo
-def procesar(path):
-    if not os.path.exists("Logs") or len(os.listdir("Logs")) == 0:
-        print("Lanzar error")
-
-    if not os.path.exists("Logs procesados"):
-        os.mkdir("Logs procesados")
-
-    proc = parseador.procesarLog(path)
-    proc = limitarExtensiones(proc, ("html", "htm", "pdf", "asp", "exe", "txt", "doc", "ppt", "xls", "xml", ""))
-    proc = eliminarBots(proc)
-    proc = definirTiempos(proc)
-    proc = identificarUsuarios(proc)
-    tiempoCorte = 1800
-    proc = definirSesiones(proc, tiempoCorte)
-    fichero_indice = open("Logs procesados/" + path, "wb")
-    pickle.dump(proc, fichero_indice)
