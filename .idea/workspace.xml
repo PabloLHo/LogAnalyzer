@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5efcd55d-5515-4f01-897a-b3ccd1354243" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/MW.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MW.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencias/analisis.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/analisis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencias/parseador.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/parseador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencias/procesado.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/procesado.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js/graficas.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
