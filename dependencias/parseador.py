@@ -12,17 +12,19 @@ def definirColumnas(cadena):
     return campos[:len(aux)-1]
 
 
-def definirPerfiles(cadena):
+def definirPerfiles(cadena, columnas):
 
     perfiles = dict()
+    registros = list()
 
     for linea in cadena.split("\n"):
         ip = linea.split(' - ')[0]
         if ip not in perfiles.keys():
             perfiles[ip] = list()
         perfiles[ip].append(linea)
+        registros.append(procesarLinea(linea, columnas))
 
-    return perfiles
+    return perfiles, registros
 
 
 def procesarLinea(linea, columnas):
@@ -61,9 +63,9 @@ def procesarLog(fichero):
 
     columnas = definirColumnas(cadena)
 
-    toRet = definirPerfiles(cadena)
+    toRet, registros = definirPerfiles(cadena, columnas)
 
     for perfil in toRet.keys():
         procesarPerfil(perfil, toRet, columnas)
 
-    return {'contenido': toRet, 'columnas': columnas}
+    return {'contenido': toRet, 'columnas': columnas, 'registros': registros}

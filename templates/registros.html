@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="static/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
 </head>
 
 <body id="page-top">
@@ -47,34 +46,33 @@
                                     <table class="table my-0" id="data">
                                         <thead>
                                             <tr>
-                                                {% for i in registros['columnas'] %}
+                                                {% for i in columnas %}
                                                     <th>{{i}}</th>
                                                 {% endfor %}
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            {% for host, sesiones in registros['contenido'].items() %}
-                                                <tr>
-                                                    {% for sesion in sesiones %}
-                                                        {% for campo, valor in sesion.items() %}
-                                                            {% if campo != 'fechaHora' %}
-                                                                <th>{{valor}}</th>
-                                                            {% endif %}
-                                                        {% endfor %}
+                                        <tbody id="tabla">
+                                            {% for linea in registros %}
+                                                    <tr>
+                                                    {% for campo, valor in linea.items() %}
+                                                        <td>{{valor}}</td>
                                                     {% endfor %}
-                                                </tr>
+                                                    </tr>
                                             {% endfor %}
                                         </tbody>
-                                        <tfoot>
-                                            {% for i in registros['columnas'] %}
-                                                <td>{{i}}</td>
-                                            {% endfor %}
-                                        </tfoot>
                                     </table>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 align-self-center">
-                                        <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite"></p>
+                                        <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando registros del 1 al 10 de {{tam}}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                            <ul class="pagination">
+                                                <li class="page-item disabled" id="disabled"><button class="page-link" aria-label="Previous" id="anterior" onclick ="consulta_ajax(this)"><span aria-hidden="true">Anterior</span></li>
+                                                <li class="page-item"><button class="page-link" aria-label="Next" id="siguiente" onclick ="consulta_ajax(this)"><span aria-hidden="true">Siguiente</span></li>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>
@@ -82,6 +80,8 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" id="paginaActual" name="paginaActual" value="1" />
+            <input type="hidden" id="registrosPorPagina" name="registrosPorPagina" value="{{registrosPorPagina}}" />
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © Web Analyzer 2023</span></div>
@@ -92,41 +92,37 @@
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/bs-init.js"></script>
     <script src="static/js/theme.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-    <script>
-            $(document).ready(function () {
-                $('#data').DataTable({
-                    columns: [
-                        {orderable: false},
-                        {orderable: false},
-                        {orderable: false},
-                        {orderable: false},
-                        {searchable: false},
-                        {searchable: false},
-                        {searchable: false, orderable: false},
-                        {orderable: false},
-                        {orderable: false},
-                        {orderable: false},
-                        {orderable: false},
-                        {orderable: false}
-                    ],
-                    "language": {
-                        lengthMenu: "Mostrar _MENU_ registros por página",
-                        zeroRecords: "No se ha encontrado ningún registro",
-                        info: "Mostrando página _PAGE_ de _PAGES_",
-                        infoEmpty: "No se ha encontrado ningún registro",
-                        infoFiltered: "(Filtrando entre _MAX_ registros)",
-                        searchPlaceholder: "Buscar",
-                        search: "",
-                        paginate: {
-                            previous: "Anterior",
-                            next: "Siguiente"
-                        }
+    <script src="static/js/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript">
+        function consulta_ajax(element){
+            let paginaActual = document.getElementById("paginaActual").value;
+            if (element.id == "anterior") {
+                paginaActual--;
+            } else {
+                paginaActual++;
+            }
+            document.getElementById("paginaActual").value = paginaActual;
+            let tabla = document.getElementById("tabla");
+            $.ajax({
+                url:"/ajax",
+                type:"POST",
+                data: {"value":paginaActual},
+                success: function(response){
+                    tabla.innerHTML = response;
+                    let registrosPorPagina = document.getElementById("registrosPorPagina").value;
+                    document.getElementById("dataTable_info").innerHTML = "Mostrando registros del " + ((paginaActual-1)*registrosPorPagina).toString() + " al " + (paginaActual*registrosPorPagina).toString() + " de {{tam}}"
+                    if (paginaActual > 1) {
+                        document.getElementById("disabled").className = "page-item";
+                    } else {
+                        document.getElementById("disabled").className = "page-item disabled";
                     }
-                });
+                },
+                error: function(error){
+                    //console.log(error);
+                }
             });
-        </script>
+        }
+    </script>
 </body>
 
 </html>

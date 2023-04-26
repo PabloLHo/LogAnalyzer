@@ -10,9 +10,10 @@ app = Flask(__name__)
 #Carpeta uploads
 app.config['UPLOAD_FOLDER'] = os.path.join('Logs')
 
-#Estructura principal
+#Variables globales
 logsExistentes = os.listdir("Logs procesados")
 log = None
+registrosPorPagina = 10
 
 
 #Ruta base: página principal
@@ -25,10 +26,26 @@ def index():
 #Ruta para ver los registros
 @app.route('/registros', methods=['GET', 'POST'])
 def registros():
-    global log
-    registros = log['procesado'] if log is not None else None
-    print(registros['contenido']['199.72.81.55'])
-    return render_template('registros.html', registros=registros)
+    global log, registrosPorPagina
+    registros = log['procesado']['registros'][0:registrosPorPagina] if log is not None else None
+    columnas = log['procesado']['columnas'] if log is not None else None
+    tam = len(log['procesado']['registros']) if log is not None else None
+    return render_template('registros.html', registros=registros, columnas=columnas, tam=tam, registrosPorPagina=registrosPorPagina)
+
+
+@app.route('/ajax', methods=["GET", "POST"])
+def ajax():
+    global log, registrosPorPagina
+    registros = log['procesado']['registros'] if log is not None else None
+
+    if request.method == "POST":
+        print("Hola")
+        pag = request.form['value']
+        antes = (int(pag) - 1) * registrosPorPagina
+        ahora = int(pag) * registrosPorPagina
+        datos_modificados = registros[antes:ahora]
+        return render_template("tabla.html", pagina=int(pag), datos_modificados=datos_modificados)
+
 
 
 #Ruta para ver las sesiones

@@ -1,0 +1,7 @@
+{% for linea in datos_modificados %}
+        <tr>
+        {% for campo, valor in linea.items() %}
+            <td>{{valor}}</td>
+        {% endfor %}
+        </tr>
+{% endfor %}

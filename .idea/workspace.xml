@@ -4,22 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5efcd55d-5515-4f01-897a-b3ccd1354243" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/MW.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MW.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="5efcd55d-5515-4f01-897a-b3ccd1354243" name="Changes" comment="Cambios para mejorar interfaz">
+      <change afterPath="$PROJECT_DIR$/static/js/jquery-3.6.4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/tabla.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logs procesados/NASA_access_log_REDUC.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs procesados/NASA_access_log_REDUC.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/nbasim.pythonanywhere.com.access.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/nbasim.pythonanywhere.com.access.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencias/analisis.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/analisis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dependencias/parseador.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/parseador.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dependencias/procesado.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/procesado.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/registros.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registros.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reglas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reglas.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sesion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sesiones.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sesiones.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +64,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.MW">
     <configuration name="MW" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="MW" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -137,8 +130,17 @@
       <workItem from="1682496938857" duration="46000" />
       <workItem from="1682497162161" duration="3384000" />
       <workItem from="1682503464713" duration="6967000" />
-      <workItem from="1682513891170" duration="6441000" />
+      <workItem from="1682513891170" duration="6493000" />
+      <workItem from="1682546588546" duration="4839000" />
     </task>
+    <task id="LOCAL-00001" summary="Cambios para mejorar interfaz">
+      <created>1682520626152</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1682520626152</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,6 +159,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Cambios para mejorar interfaz" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios para mejorar interfaz" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/LogAnalyzer$procesado.coverage" NAME="procesado Coverage Results" MODIFIED="1682503579544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dependencias" />

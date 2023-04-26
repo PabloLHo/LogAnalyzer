@@ -41,9 +41,6 @@ def definirTiempos(log):
             fecha2 = datetime.strptime(content[host][visita]["fechaHora"], '%d/%b/%Y:%H:%M:%S')
             content[host][visita]["Timestamp"] = (fecha2 - fecha1).total_seconds()
     columnas = log['columnas']
-    columnas.append('Fecha')
-    columnas.append('Hora')
-    columnas.append('Timestamp')
     return {'contenido': content, 'columnas': columnas}
 
 
