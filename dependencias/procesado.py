@@ -11,8 +11,8 @@ def procesar(path):
     if not os.path.exists("Logs procesados"):
         os.mkdir("Logs procesados")
 
-    proc = parseador.procesarLog(path)
-    proc = limitarExtensiones(proc, ("html", "htm", "pdf", "asp", "exe", "txt", "doc", "ppt", "xls", "xml", ""))
+    procOriginal = parseador.procesarLog(path)
+    proc = limitarExtensiones(procOriginal, ("html", "htm", "pdf", "asp", "exe", "txt", "doc", "ppt", "xls", "xml", ""))
     proc = eliminarBots(proc)
     proc = definirTiempos(proc)
     proc = identificarUsuarios(proc)
@@ -20,9 +20,10 @@ def procesar(path):
     proc = definirSesiones(proc, tiempoCorte)
     path = path.split("/")[len(path.split("/")) - 1]
     fichero_indice = open("Logs procesados/" + path, "wb")
-    pickle.dump(proc, fichero_indice)
+    pickle.dump({'proc': proc, 'original': procOriginal}, fichero_indice)
 
-def definirTiempos(content):
+def definirTiempos(log):
+    content = log['contenido']
     minimaFecha = content[next(iter(content))][0]["fechaHora"]
     for host in content:
         for visita in range(len(content[host])):
@@ -39,20 +40,26 @@ def definirTiempos(content):
             content[host][visita]["Hora"] = "" + content[host][visita]["fechaHora"].split(":")[1] + ":" + content[host][visita]["fechaHora"].split(":")[2] + ":" + content[host][visita]["fechaHora"].split(":")[3]
             fecha2 = datetime.strptime(content[host][visita]["fechaHora"], '%d/%b/%Y:%H:%M:%S')
             content[host][visita]["Timestamp"] = (fecha2 - fecha1).total_seconds()
-    return content
+    columnas = log['columnas']
+    columnas.append('Fecha')
+    columnas.append('Hora')
+    columnas.append('Timestamp')
+    return {'contenido': content, 'columnas': columnas}
 
 
-def eliminarBots(content):
+def eliminarBots(log):
+    content = log['contenido']
     res = dict()
     for host in content:
         if "bot" in host or "crawler" in host or "spider" in host:
             pass
         else:
             res[host] = content[host]
-    return res
+    return {'contenido': res, 'columnas': log['columnas']}
 
 
-def definirSesiones(content, time):
+def definirSesiones(log, time):
+    content = log['contenido']
     sesionesIP = dict()
     for host in content:
         sesionesIP[host] = dict()
@@ -75,10 +82,11 @@ def definirSesiones(content, time):
                     sesionesIP[host][usuario]["sesion"][sesion] = list()
                     sesionesIP[host][usuario]["sesion"][sesion].append(content[host][usuario][visita])
             sesion += 1
-    return sesionesIP
+    return {'contenido': sesionesIP, 'columnas': log['columnas']}
 
 
-def identificarUsuarios(content):
+def identificarUsuarios(log):
+    content = log['contenido']
     usuarios = dict()
     for host in content:
         usuarios[host] = dict()
@@ -92,10 +100,11 @@ def identificarUsuarios(content):
             for usuario in usuarios[host]:
                 if usuario == content[host][visita]["usuario"] or usuario == host:
                     usuarios[host][usuario].append(content[host][visita])
-    return usuarios
+    return {'contenido': usuarios, 'columnas': log['columnas']}
 
 
-def limitarExtensiones(content, extensiones):
+def limitarExtensiones(log, extensiones):
+    content = log['contenido']
     res = dict()
     for host in content:
         res[host] = list()
@@ -105,4 +114,4 @@ def limitarExtensiones(content, extensiones):
             extension = extension.split(".")[len(extension.split(".")) - 1]
             if extension in extensiones:
                 res[host].append(content[host][visita])
-    return res
+    return {'contenido': res, 'columnas': log['columnas']}

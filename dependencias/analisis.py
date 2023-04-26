@@ -178,8 +178,12 @@ def analizar(path):
     path = path.split("/")[len(path.split("/")) - 1]
     fichero_procesado = open("Logs procesados/" + path, "rb")
     tiempoCorte = 1800
-    procesados = pickle.load(fichero_procesado)
-    visitasPagina, totalPaginas, usuariosPaginas = paginasVisitadas(procesados)
-    actualizadoSesiones = tiemposSesion(procesados)
-    visitasDiariasPaginas = diario(procesados,tiempoCorte)
-    visitasUsuarioDiarias = usuarioDiario(procesados,tiempoCorte)
+    aux = pickle.load(fichero_procesado)
+    procesados = aux['proc']
+    visitasPagina, totalPaginas, usuariosPaginas = paginasVisitadas(procesados['contenido'])
+    actualizadoSesiones = tiemposSesion(procesados['contenido'])
+    visitasDiariasPaginas = diario(procesados['contenido'],tiempoCorte)
+    visitasUsuarioDiarias = usuarioDiario(procesados['contenido'],tiempoCorte)
+
+    return {'procesado': aux['original'], 'visitasPagina': visitasPagina, 'totalPaginas': totalPaginas, 'usuariosPaginas': usuariosPaginas,
+            'actualizadoSesiones': actualizadoSesiones, 'visitasDiariasPaginas': visitasDiariasPaginas, 'visitasUsuarioDiarias': visitasUsuarioDiarias}

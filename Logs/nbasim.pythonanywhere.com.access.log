@@ -1,3 +1,4 @@
+
 90.168.20.61 - - [11/Jan/2023:18:37:48 +0000] "GET / HTTP/1.1" 200 1704 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" "90.168.20.61" response-time=5.267
 90.168.20.61 - - [11/Jan/2023:18:37:48 +0000] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 33428 "http://nbasim.pythonanywhere.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" "90.168.20.61" response-time=0.026
 90.168.20.61 - - [11/Jan/2023:18:37:49 +0000] "GET /static/img/avatars/miguelangel.JPG HTTP/1.1" 200 568204 "http://nbasim.pythonanywhere.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" "90.168.20.61" response-time=0.022
