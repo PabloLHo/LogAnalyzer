@@ -7,7 +7,7 @@
 
 //Mas info - https://www.chartjs.org/docs/latest/samples/information.html
 
-function calculoGrafica(tipo, id, nombre, paginas, visitas){
+function calculoGrafica(tipo, id, nombre, visitas, paginas){
 
 	var r = Math.random() * 255;
 	var g = Math.random() * 255;
