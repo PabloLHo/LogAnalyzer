@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5efcd55d-5515-4f01-897a-b3ccd1354243" name="Changes" comment="">
+    <list default="true" id="5efcd55d-5515-4f01-897a-b3ccd1354243" name="Changes" comment="Cambios para mejorar interfaz">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependencias/analisis.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/analisis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/graficas.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/graficas.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
@@ -149,7 +150,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dependencias/analisis.py</url>
-          <line>148</line>
+          <line>149</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

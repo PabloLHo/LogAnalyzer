@@ -57,16 +57,17 @@ def paginasVisitadas(content):
             usuariosPaginas[usuario][pagina]["Media"] = usuariosPaginas[usuario][pagina]["Tiempo"] / usuariosPaginas[usuario][pagina]["visitas"]
 
     for pagina in paginasVisitadas:
-        totalVisitas[pagina] = 0
+        totalVisitas[pagina] = {"visitas": 0, "tiempo": 0}
         for usuario in paginasVisitadas[pagina]:
-            totalVisitas[pagina] += paginasVisitadas[pagina][usuario]
+            totalVisitas[pagina]["visitas"] += paginasVisitadas[pagina][usuario]
+            totalVisitas[pagina]["tiempo"] += usuariosPaginas[usuario][pagina]["Tiempo"]
 
     res = dict()
     for usuario in usuariosPaginas:
         diccionario_ordenado = dict(sorted(usuariosPaginas[usuario].items(), key=lambda item: item[1]['visitas'], reverse=True))
         res[usuario] = diccionario_ordenado
 
-    totalVisitas = dict(sorted(totalVisitas.items(), key=lambda item: item[1], reverse=True))
+    totalVisitas = dict(sorted(totalVisitas.items(), key=lambda item: item[1]['visitas'], reverse=True))
     return paginasVisitadas, totalVisitas, res
 
 
