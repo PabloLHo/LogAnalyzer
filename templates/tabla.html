@@ -1,7 +1,11 @@
 {% for linea in datos_modificados %}
         <tr>
         {% for campo, valor in linea.items() %}
-            <td>{{valor}}</td>
+            {% if campo == 'host' %}
+                <td><a id="host" href="/host?usuario={{valor}}"> {{valor}}</a></td>
+            {% else %}
+                <td>{{valor}}</td>
+            {% endif %}
         {% endfor %}
         </tr>
 {% endfor %}

@@ -19,7 +19,7 @@ registrosPorPagina = 10
 #Ruta base: página principal
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global logsExistentes
+    global log, logsExistentes
     sesiones = log["numSesiones"] if log is not None else None
     usuarios = len(log["visitasUsuarioDiarias"]) if log is not None else None
     tam = len(log['procesado']['registros']) if log is not None else None
@@ -43,9 +43,7 @@ def registros():
 def ajax():
     global log, registrosPorPagina
     registros = log['procesado']['registros'] if log is not None else None
-
     if request.method == "POST":
-        print("Hola")
         pag = request.form['value']
         antes = (int(pag) - 1) * registrosPorPagina
         ahora = int(pag) * registrosPorPagina
@@ -56,15 +54,37 @@ def ajax():
 #Ruta para ver las sesiones
 @app.route('/sesiones', methods=['GET', 'POST'])
 def sesiones():
-    return render_template('sesiones.html')
+    global log, registrosPorPagina
+    sesiones = log['sesionesOrdenadas'][0:registrosPorPagina] if log is not None else None
+    tam = len(log['sesionesOrdenadas']) if log is not None else None
+    columnas = ['idSesion', 'host', 'numeroVisitas']
+    return render_template('sesiones.html', sesiones=sesiones, columnas=columnas, tam=tam, registrosPorPagina=registrosPorPagina)
+
+
+@app.route('/ajaxSesiones', methods=["GET", "POST"])
+def ajaxSesiones():
+    global log, registrosPorPagina
+    sesiones = log['sesionesOrdenadas'] if log is not None else None
+    if request.method == "POST":
+        pag = request.form['value']
+        antes = (int(pag) - 1) * registrosPorPagina
+        ahora = int(pag) * registrosPorPagina
+        datos_modificados = sesiones[antes:ahora]
+        return render_template("tablaSesiones.html", pagina=int(pag), datos_modificados=datos_modificados)
 
 
 #Ruta para ver los datos de una sesion
 @app.route('/sesion', methods=['GET', 'POST'])
 def sesion():
     usuario = request.url.split("=")[1]
-
     return render_template('sesion.html', usuario=usuario)
+
+
+#Ruta para ver los datos de un host
+@app.route('/host', methods=['GET', 'POST'])
+def host():
+    usuario = request.url.split("=")[1]
+    return render_template('host.html', usuario=usuario)
 
 
 #Ruta de reglas

@@ -1,0 +1,9 @@
+{% for sesion in datos_modificados %}
+        <tr>
+            <td><a id="sesion" href="/sesion?id={{id}}"> {{sesion['id']}}</a></td>
+            <td><a id="host" href="/host?host={{sesion['host']}}"> {{sesion['host']}}</a></td>
+            <td>{{sesion['usuario']}}</td>
+            <td>{{sesion['tiempoSesion']}}</td>
+            <td>{{sesion['visitas'] | length}}</td>
+        </tr>
+{% endfor %}

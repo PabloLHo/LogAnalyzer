@@ -164,6 +164,19 @@ def numeroSesiones(content):
     return sesiones
 
 
+def desliarSesiones(content):
+    toRet = list()
+    for host, resto in content.items():
+        for usuario, resto2 in resto.items():
+            for id, resto3 in resto2['sesion'].items():
+                aux = resto3
+                aux['id'] = id
+                aux['host'] = host
+                aux['usuario'] = usuario
+                toRet.append(aux)
+    return toRet
+
+
 # Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
 def analizar(path):
     if not os.path.exists("Logs procesados") or len(os.listdir("Logs procesados")) == 0:
@@ -176,10 +189,11 @@ def analizar(path):
     procesados = aux['proc']
     visitasPagina, totalPaginas, usuariosPaginas = paginasVisitadas(procesados['contenido'])
     actualizadoSesiones = tiemposSesion(procesados['contenido'])
+    sesiones = desliarSesiones(actualizadoSesiones)
     visitasDiariasPaginas = diario(procesados['contenido'],tiempoCorte)
     visitasUsuarioDiarias = usuarioDiario(procesados['contenido'],tiempoCorte)
     sesionesTotales = numeroSesiones(procesados['contenido'])
 
     return {'procesado': aux['original'], 'visitasPagina': visitasPagina, 'totalPaginas': totalPaginas, 'usuariosPaginas': usuariosPaginas,
             'actualizadoSesiones': actualizadoSesiones, 'visitasDiariasPaginas': visitasDiariasPaginas, 'visitasUsuarioDiarias': visitasUsuarioDiarias,
-            'numSesiones': sesionesTotales}
+            'numSesiones': sesionesTotales, 'sesionesOrdenadas': sesiones}
