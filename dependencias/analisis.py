@@ -86,22 +86,6 @@ def tiemposSesion(content):
     return content
 
 
-def tiemposSesion(content):
-
-    for host in content:
-        for usuario in content[host]:
-            tiempoTotal = 0
-            for sesion in content[host][usuario]["sesion"]:
-                inicio = datetime.strptime(content[host][usuario]["sesion"][sesion][0]["fechaHora"], '%d/%b/%Y:%H:%M:%S')
-                fin = datetime.strptime(content[host][usuario]["sesion"][sesion][len(content[host][usuario]["sesion"][sesion]) - 1]["fechaHora"], '%d/%b/%Y:%H:%M:%S')
-                tiempo = (fin - inicio).total_seconds()
-                tiempoTotal += tiempo
-                content[host][usuario]["sesion"][sesion] = {"tiempoSesion": 0, "visitas": content[host][usuario]["sesion"][sesion]}
-                content[host][usuario]["sesion"][sesion]["tiempoSesion"] = tiempo
-            content[host][usuario]["TiempoMedioSesion"] = tiempoTotal / len(content[host][usuario]["sesion"])
-    return content
-
-
 def diario(content, tiempoCorte):
     visitasDiarias = dict()
 
@@ -147,7 +131,6 @@ def usuarioDiario(content, tiempoCorte):
         for usuario in content[host]:
             for sesion in content[host][usuario]["sesion"]:
                 for visita in range(len(content[host][usuario]["sesion"][sesion]["visitas"])):
-                    pagina = content[host][usuario]["sesion"][sesion]["visitas"][visita]["pagina"]
                     fecha = content[host][usuario]["sesion"][sesion]["visitas"][visita]["Fecha"]
                     if visitasDiarias.keys().__contains__(usuario):
                         if visitasDiarias[usuario].keys().__contains__(fecha):
@@ -170,6 +153,16 @@ def usuarioDiario(content, tiempoCorte):
     return visitasDiarias
 
 
+def numeroSesiones(content):
+    sesiones = 0
+    for host in content:
+        for usuario in content[host]:
+            for sesion in content[host][usuario]["sesion"]:
+                if sesiones < sesion:
+                    sesiones = sesion
+    return sesiones
+
+
 # Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
 def analizar(path):
     if not os.path.exists("Logs procesados") or len(os.listdir("Logs procesados")) == 0:
@@ -184,6 +177,8 @@ def analizar(path):
     actualizadoSesiones = tiemposSesion(procesados['contenido'])
     visitasDiariasPaginas = diario(procesados['contenido'],tiempoCorte)
     visitasUsuarioDiarias = usuarioDiario(procesados['contenido'],tiempoCorte)
+    sesionesTotales = numeroSesiones(procesados['contenido'])
 
     return {'procesado': aux['original'], 'visitasPagina': visitasPagina, 'totalPaginas': totalPaginas, 'usuariosPaginas': usuariosPaginas,
-            'actualizadoSesiones': actualizadoSesiones, 'visitasDiariasPaginas': visitasDiariasPaginas, 'visitasUsuarioDiarias': visitasUsuarioDiarias}
+            'actualizadoSesiones': actualizadoSesiones, 'visitasDiariasPaginas': visitasDiariasPaginas, 'visitasUsuarioDiarias': visitasUsuarioDiarias,
+            'numSesiones': sesionesTotales}

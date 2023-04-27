@@ -20,7 +20,13 @@ registrosPorPagina = 10
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global logsExistentes
-    return render_template('index.html', log=log, logsExistentes=logsExistentes)
+    sesiones = log["numSesiones"] if log is not None else None
+    usuarios = len(log["visitasUsuarioDiarias"]) if log is not None else None
+    tam = len(log['procesado']['registros']) if log is not None else None
+    paginas = len(log['totalPaginas']) if log is not None else None
+    visitasPaginas = log['totalPaginas'] if log is not None else None
+    return render_template('index.html', log=log, logsExistentes=logsExistentes, tam=tam, numUsuarios=usuarios, numPaginas=paginas, numSesiones=sesiones,
+                           totalPaginas=visitasPaginas)
 
 
 #Ruta para ver los registros
@@ -47,7 +53,6 @@ def ajax():
         return render_template("tabla.html", pagina=int(pag), datos_modificados=datos_modificados)
 
 
-
 #Ruta para ver las sesiones
 @app.route('/sesiones', methods=['GET', 'POST'])
 def sesiones():
@@ -57,7 +62,7 @@ def sesiones():
 #Ruta para ver los datos de una sesion
 @app.route('/sesion', methods=['GET', 'POST'])
 def sesion():
-    return render_template('sesion.html')
+    return render_template('sesion.html', usuario=sesion)
 
 
 #Ruta de reglas

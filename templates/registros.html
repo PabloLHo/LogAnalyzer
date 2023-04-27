@@ -55,7 +55,11 @@
                                             {% for linea in registros %}
                                                     <tr>
                                                     {% for campo, valor in linea.items() %}
-                                                        <td>{{valor}}</td>
+                                                        {% if campo == 'host' %}
+                                                            <td><a id="sesion" href="/sesion"> {{valor}}</a></td>
+                                                        {% else %}
+                                                            <td>{{valor}}</td>
+                                                        {% endif %}
                                                     {% endfor %}
                                                     </tr>
                                             {% endfor %}
@@ -122,6 +126,7 @@
                 }
             });
         }
+
     </script>
 </body>
 
