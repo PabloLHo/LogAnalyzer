@@ -4,32 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2281cb86-82d0-4459-9283-02907098e4da" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/host.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/tablaSesiones.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+    <list default="true" id="2281cb86-82d0-4459-9283-02907098e4da" name="Changes" comment="Paginas de sesiones y registros hechas">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencias/analisis.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/analisis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registros.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registros.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/sesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sesion.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/sesiones.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sesiones.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tabla.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tabla.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tablaSesiones.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tablaSesiones.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectId" id="2P18a7YBBXqbgXcwnozj4WohKTl" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "/home/mdavila/PycharmProjects/LogAnalyzer/templates",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -37,8 +50,33 @@
       <recent name="$PROJECT_DIR$/templates" />
     </key>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2281cb86-82d0-4459-9283-02907098e4da" name="Changes" comment="" />
+      <created>1682613288803</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1682613288803</updated>
+      <workItem from="1682613292729" duration="60000" />
+      <workItem from="1682615922866" duration="4700000" />
+    </task>
+    <task id="LOCAL-00001" summary="Paginas de sesiones y registros hechas">
+      <created>1682613329136</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1682613329136</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Paginas de sesiones y registros hechas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Paginas de sesiones y registros hechas" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/LogAnalyzer$procesado.coverage" NAME="procesado Coverage Results" MODIFIED="1682503579544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dependencias" />

@@ -20,11 +20,11 @@ registrosPorPagina = 10
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global log, logsExistentes
-    sesiones = log["numSesiones"] if log is not None else None
-    usuarios = len(log["visitasUsuarioDiarias"]) if log is not None else None
-    tam = len(log['procesado']['registros']) if log is not None else None
-    paginas = len(log['totalPaginas']) if log is not None else None
-    visitasPaginas = log['totalPaginas'] if log is not None else None
+    sesiones = log["numSesiones"] if log else None
+    usuarios = len(log["visitasUsuarioDiarias"]) if log else None
+    tam = len(log['procesado']['registros']) if log else None
+    paginas = len(log['totalPaginas']) if log else None
+    visitasPaginas = log['totalPaginas'] if log else None
     return render_template('index.html', log=log, logsExistentes=logsExistentes, tam=tam, numUsuarios=usuarios, numPaginas=paginas, numSesiones=sesiones,
                            totalPaginas=visitasPaginas)
 
@@ -33,16 +33,16 @@ def index():
 @app.route('/registros', methods=['GET', 'POST'])
 def registros():
     global log, registrosPorPagina
-    registros = log['procesado']['registros'][0:registrosPorPagina] if log is not None else None
-    columnas = log['procesado']['columnas'] if log is not None else None
-    tam = len(log['procesado']['registros']) if log is not None else None
+    registros = log['procesado']['registros'][0:registrosPorPagina] if log else None
+    columnas = log['procesado']['columnas'] if log else None
+    tam = len(log['procesado']['registros']) if log else None
     return render_template('registros.html', registros=registros, columnas=columnas, tam=tam, registrosPorPagina=registrosPorPagina)
 
 
 @app.route('/ajax', methods=["GET", "POST"])
 def ajax():
     global log, registrosPorPagina
-    registros = log['procesado']['registros'] if log is not None else None
+    registros = log['procesado']['registros'] if log else None
     if request.method == "POST":
         pag = request.form['value']
         antes = (int(pag) - 1) * registrosPorPagina
@@ -55,8 +55,8 @@ def ajax():
 @app.route('/sesiones', methods=['GET', 'POST'])
 def sesiones():
     global log, registrosPorPagina
-    sesiones = log['sesionesOrdenadas'][0:registrosPorPagina] if log is not None else None
-    tam = len(log['sesionesOrdenadas']) if log is not None else None
+    sesiones = log['sesionesOrdenadas'][0:registrosPorPagina] if log else None
+    tam = len(log['sesionesOrdenadas']) if log else None
     columnas = ['idSesion', 'host', 'numeroVisitas']
     return render_template('sesiones.html', sesiones=sesiones, columnas=columnas, tam=tam, registrosPorPagina=registrosPorPagina)
 
@@ -64,7 +64,7 @@ def sesiones():
 @app.route('/ajaxSesiones', methods=["GET", "POST"])
 def ajaxSesiones():
     global log, registrosPorPagina
-    sesiones = log['sesionesOrdenadas'] if log is not None else None
+    sesiones = log['sesionesOrdenadas'] if log else None
     if request.method == "POST":
         pag = request.form['value']
         antes = (int(pag) - 1) * registrosPorPagina
@@ -76,8 +76,19 @@ def ajaxSesiones():
 #Ruta para ver los datos de una sesion
 @app.route('/sesion', methods=['GET', 'POST'])
 def sesion():
-    usuario = request.url.split("=")[1]
-    return render_template('sesion.html', usuario=usuario)
+    global log, registrosPorPagina
+    id = int(request.url.split("=")[1])
+    sesion = log['sesionesOrdenadas'][id-1] if log else None
+    columnas = log['procesado']['columnas'] if log else None
+    porPaginas = None
+    if sesion :
+        porPaginas = dict()
+        for visita in sesion['visitas'] :
+            if visita['pagina'] not in porPaginas :
+                porPaginas[visita['pagina']] = 1
+            else :
+                porPaginas[visita['pagina']] += 1
+    return render_template('sesion.html', sesion=sesion, columnas=columnas, porPaginas=porPaginas)
 
 
 #Ruta para ver los datos de un host
