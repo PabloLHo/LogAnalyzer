@@ -56,7 +56,7 @@
                                                     <tr>
                                                     {% for campo, valor in linea.items() %}
                                                         {% if campo == 'host' %}
-                                                            <td><a id="sesion" href="/sesion"> {{valor}}</a></td>
+                                                            <td><a id="sesion" href="/sesion?usuario={{valor}}"> {{valor}}</a></td>
                                                         {% else %}
                                                             <td>{{valor}}</td>
                                                         {% endif %}

@@ -62,7 +62,9 @@ def sesiones():
 #Ruta para ver los datos de una sesion
 @app.route('/sesion', methods=['GET', 'POST'])
 def sesion():
-    return render_template('sesion.html', usuario=sesion)
+    usuario = request.url.split("=")[1]
+
+    return render_template('sesion.html', usuario=usuario)
 
 
 #Ruta de reglas
