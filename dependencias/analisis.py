@@ -137,11 +137,11 @@ def usuarioDiario(content, tiempoCorte):
                         if visitasDiarias[usuario].keys().__contains__(fecha):
                             visitasDiarias[usuario][fecha]["visitas"].append(content[host][usuario]["sesion"][sesion]["visitas"][visita])
                         else:
-                            visitasDiarias[usuario][fecha] = {"numeroVisitas": 1, "visitas": list()}
+                            visitasDiarias[usuario][fecha] = {"numeroVisitas": 0, "visitas": list(), "tiempo": 0}
                             visitasDiarias[usuario][fecha]["visitas"].append(content[host][usuario]["sesion"][sesion]["visitas"][visita])
                     else:
                         visitasDiarias[usuario] = dict()
-                        visitasDiarias[usuario][fecha] = {"numeroVisitas": 1, "visitas": list()}
+                        visitasDiarias[usuario][fecha] = {"numeroVisitas": 0, "visitas": list(), "tiempo": 0}
                         visitasDiarias[usuario][fecha]["visitas"].append(content[host][usuario]["sesion"][sesion]["visitas"][visita])
 
     for usuario in visitasDiarias:
@@ -151,6 +151,8 @@ def usuarioDiario(content, tiempoCorte):
                 if (visitasDiarias[usuario][fecha]["visitas"][visita]["Timestamp"] - visitasDiarias[usuario][fecha]["visitas"][aux]["Timestamp"]) > tiempoCorte:
                     aux = visita
                     visitasDiarias[usuario][fecha]["numeroVisitas"] += 1
+                else:
+                    visitasDiarias[usuario][fecha]["tiempo"] += visitasDiarias[usuario][fecha]["visitas"][visita]["Timestamp"] - visitasDiarias[usuario][fecha]["visitas"][aux]["Timestamp"]
     return visitasDiarias
 
 
@@ -177,6 +179,22 @@ def desliarSesiones(content):
     return toRet
 
 
+def extraccionExtensiones(content):
+    extensiones = dict()
+    for host in content:
+        for usuario in content[host]:
+            for sesion in content[host][usuario]["sesion"]:
+                for i in range(len(content[host][usuario]["sesion"][sesion]["visitas"])):
+                    pagina = content[host][usuario]["sesion"][sesion]["visitas"][i]["pagina"]
+                    extension = pagina.split("/")[len(pagina.split("/")) - 1]
+                    extension = extension.split(".")[len(extension.split(".")) - 1]
+                    if extensiones.keys().__contains__(extension):
+                        extensiones[extension] += 1
+                    else:
+                        extensiones[extension] = 1
+    return extensiones
+
+
 # Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
 def analizar(path):
     if not os.path.exists("Logs procesados") or len(os.listdir("Logs procesados")) == 0:
@@ -193,7 +211,8 @@ def analizar(path):
     visitasDiariasPaginas = diario(procesados['contenido'],tiempoCorte)
     visitasUsuarioDiarias = usuarioDiario(procesados['contenido'],tiempoCorte)
     sesionesTotales = numeroSesiones(procesados['contenido'])
+    extensiones = extraccionExtensiones(procesados["contenido"])
 
     return {'procesado': aux['original'], 'visitasPagina': visitasPagina, 'totalPaginas': totalPaginas, 'usuariosPaginas': usuariosPaginas,
             'actualizadoSesiones': actualizadoSesiones, 'visitasDiariasPaginas': visitasDiariasPaginas, 'visitasUsuarioDiarias': visitasUsuarioDiarias,
-            'numSesiones': sesionesTotales, 'sesionesOrdenadas': sesiones}
+            'numSesiones': sesionesTotales, 'sesionesOrdenadas': sesiones, 'repeticionExtensiones': extensiones}

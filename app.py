@@ -25,8 +25,22 @@ def index():
     tam = len(log['procesado']['registros']) if log else None
     paginas = len(log['totalPaginas']) if log else None
     visitasPaginas = log['totalPaginas'] if log else None
-    return render_template('index.html', log=log, logsExistentes=logsExistentes, tam=tam, numUsuarios=usuarios, numPaginas=paginas, numSesiones=sesiones,
-                           totalPaginas=visitasPaginas)
+    extensiones = log['repeticionExtensiones'] if log else None
+    if log is not None:
+        visitasDiarias = dict()
+        for usuario in log["visitasUsuarioDiarias"]:
+            for dia in log["visitasUsuarioDiarias"][usuario]:
+                if not visitasDiarias.keys().__contains__(dia):
+                    visitasDiarias[dia] = {"Tiempo": 0, "Visitas": 0}
+                visitasDiarias[dia]["Visitas"] += log["visitasUsuarioDiarias"][usuario][dia]["numeroVisitas"]
+                visitasDiarias[dia]["Tiempo"] += log["visitasUsuarioDiarias"][usuario][dia]["tiempo"]
+        visitasDiarias = dict(sorted(visitasDiarias.items()))
+    else:
+        visitasDiarias = None
+
+    return render_template('index.html', log=log, logsExistentes=logsExistentes, tam=tam, numUsuarios=usuarios,
+                           numPaginas=paginas, numSesiones=sesiones,
+                           totalPaginas=visitasPaginas, extensiones=extensiones, visitasDiarias=visitasDiarias)
 
 
 #Ruta para ver los registros
@@ -81,14 +95,20 @@ def sesion():
     sesion = log['sesionesOrdenadas'][id-1] if log else None
     columnas = log['procesado']['columnas'] if log else None
     porPaginas = None
+    extensiones = dict()
     if sesion :
         porPaginas = dict()
         for visita in sesion['visitas'] :
+            extension = visita['pagina'].split("/")[len(visita['pagina'].split("/")) - 1]
+            extension = extension.split(".")[len(extension.split(".")) - 1]
             if visita['pagina'] not in porPaginas :
                 porPaginas[visita['pagina']] = 1
+                extensiones[extension] = 1
             else :
                 porPaginas[visita['pagina']] += 1
-    return render_template('sesion.html', sesion=sesion, columnas=columnas, porPaginas=porPaginas)
+                extensiones[extension] += 1
+
+    return render_template('sesion.html', sesion=sesion, columnas=columnas, porPaginas=porPaginas, extensiones=extensiones)
 
 
 #Ruta para ver los datos de un host

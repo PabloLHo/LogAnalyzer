@@ -86,14 +86,47 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card shadow">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Visitas por página</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="chart-area"><canvas id="visitasPorPagina"></canvas></div>
+                                    <div class="row">
+                                    <div class="col-lg-5 col-xl-5">
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Visitas por página</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="chart-area"><canvas id="visitasPorPagina"></canvas></div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-5 col-xl-5">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 fw-bold">Información de registros</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive table mt-2" id="dataTable2" role="grid" aria-describedby="dataTable_info">
+                                                    <table class="table my-0" id="data2">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Extension</th>
+                                                                <th>Repetición</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tabla2">
+                                                            {% for extension in extensiones %}
+                                                                    <tr>
+                                                                        {% if extension == "" %}
+                                                                            <td>Sin extensión / Blanco</td>
+                                                                        {% else %}
+                                                                            <td>{{extension}}</td>
+                                                                        {% endif %}
+                                                                        <td>{{extensiones[extension]}}</td>
+                                                                    </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        </div>
                                 </div>
                             </div>
                     </div>
