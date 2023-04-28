@@ -63,6 +63,39 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="card shadow mb-3">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 fw-bold">Sesiones del host</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                                <table class="table my-0" id="data">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID de sesión</th>
+                                                            <th>Host</th>
+                                                            <th>Usuario</th>
+                                                            <th>Tiempo de la sesión (seg)</th>
+                                                            <th>Número de visitas</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tabla">
+                                                        {% for usuario, sesiones in host['sesiones'].items() %}
+                                                            {% for id, sesion in sesiones.items() %}
+                                                                <tr>
+                                                                    <td><a id="sesion" href="/sesion?id={{id}}"> {{id}}</a></td>
+                                                                    <td>{{direccion}}</td>
+                                                                    <td>{{sesion['usuario']}}</td>
+                                                                    <td>{{sesion['tiempoSesion']}}</td>
+                                                                    <td>{{sesion['visitas'] | length}}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                     </div>

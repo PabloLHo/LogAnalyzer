@@ -68,18 +68,22 @@
                                                 <table class="table my-0" id="data">
                                                     <thead>
                                                         <tr>
-                                                            {% for c in columnas %}
-                                                                <th>{{ c }}</th>
-                                                            {% endfor %}
+                                                            <th>ID de sesión</th>
+                                                            <th>Host</th>
+                                                            <th>Usuario</th>
+                                                            <th>Tiempo de la sesión (seg)</th>
+                                                            <th>Número de visitas</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tabla">
-                                                        {% for visita in sesion['visitas'] %}
-                                                                <tr>
-                                                                    {% for c in columnas %}
-                                                                        <td>{{ visita[c] }}</td>
-                                                                    {% endfor %}
-                                                                </tr>
+                                                        {% for sesion in sesiones %}
+                                                            <tr>
+                                                                <td><a id="sesion" href="/sesion?id={{sesion['id']}}"> {{sesion['id']}}</a></td>
+                                                                <td><a id="host" href="/host?host={{sesion['host']}}"> {{sesion['host']}}</a></td>
+                                                                <td>{{sesion['usuario']}}</td>
+                                                                <td>{{sesion['tiempoSesion']}}</td>
+                                                                <td>{{sesion['visitas'] | length}}</td>
+                                                            </tr>
                                                         {% endfor %}
                                                     </tbody>
                                                 </table>
