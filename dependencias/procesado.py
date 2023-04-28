@@ -13,14 +13,13 @@ def procesar(path):
 
     procOriginal = parseador.procesarLog(path)
     proc = limitarExtensiones(procOriginal, ("html", "htm", "pdf", "asp", "exe", "txt", "doc", "ppt", "xls", "xml", ""))
-    proc = eliminarBots(proc)
+    proc, bots = eliminarBots(proc)
     proc = definirTiempos(proc)
     proc = identificarUsuarios(proc)
     tiempoCorte = 1800
     proc = definirSesiones(proc, tiempoCorte)
-    path = path.split("/")[len(path.split("/")) - 1]
-    fichero_indice = open("Logs procesados/" + path, "wb")
-    pickle.dump({'proc': proc, 'original': procOriginal}, fichero_indice)
+
+    return proc, procOriginal, bots
 
 def definirTiempos(log):
     content = log['contenido']
@@ -47,12 +46,13 @@ def definirTiempos(log):
 def eliminarBots(log):
     content = log['contenido']
     res = dict()
+    bots = dict()
     for host in content:
         if "bot" in host or "crawler" in host or "spider" in host:
-            pass
+            bots[host] = content[host]
         else:
             res[host] = content[host]
-    return {'contenido': res, 'columnas': log['columnas']}
+    return {'contenido': res, 'columnas': log['columnas']}, bots
 
 
 def definirSesiones(log, time):

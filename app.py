@@ -133,14 +133,20 @@ def subir_log():
     if request.method == 'POST':
         e = int(request.form['existente'])
         if e > -1:
-            log = analisis.analizar(logsExistentes[e])
+            path = logsExistentes[e].split("/")[len(logsExistentes[e].split("/")) - 1]
+            fichero_procesado = open("Logs procesados/" + path, "rb")
+            log = pickle.load(fichero_procesado)
         else:
             fichero = request.files['log']
             if fichero.filename != '':
                 fichero.save(os.path.join(app.config['UPLOAD_FOLDER'], fichero.filename))
                 path = app.config['UPLOAD_FOLDER'] + "/" + fichero.filename
-                procesado.procesar(path)
-                log = analisis.analizar(path)
+                proc, procOriginal, bots = procesado.procesar(path)
+                analisis.analizar(path, proc, procOriginal, bots)
+
+                path = fichero.filename.split("/")[len(fichero.filename.split("/")) - 1]
+                fichero_procesado = open("Logs procesados/" + path, "rb")
+                log = pickle.load(fichero_procesado)
                 logsExistentes = os.listdir("Logs procesados")
     return redirect('/')
 

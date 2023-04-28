@@ -195,16 +195,36 @@ def extraccionExtensiones(content):
     return extensiones
 
 
+def obtenerBots(content):
+    res = dict()
+
+    for host in content:
+        if "bot" in host:
+            if res.keys().__contains__("bot"):
+                i = 0
+            else:
+                res["bot"] = {"numeroVisitas": 0, "visitas": list()}
+        elif "spider" in host:
+            if res.keys().__contains__("spider"):
+                i = 0
+            else:
+                res["spider"] = {"numeroVisitas": 0, "visitas": list()}
+        else:
+            if res.keys().__contains__("crawler"):
+                i = 0
+            else:
+                res["crawler"] = {"numeroVisitas": 0, "visitas": list()}
+
+    return res
+
+
 # Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
-def analizar(path):
+def analizar(path,proc, procOriginal, bots):
     if not os.path.exists("Logs procesados") or len(os.listdir("Logs procesados")) == 0:
         print("Lanzar error")
 
-    path = path.split("/")[len(path.split("/")) - 1]
-    fichero_procesado = open("Logs procesados/" + path, "rb")
     tiempoCorte = 1800
-    aux = pickle.load(fichero_procesado)
-    procesados = aux['proc']
+    procesados = proc
     visitasPagina, totalPaginas, usuariosPaginas = paginasVisitadas(procesados['contenido'])
     actualizadoSesiones = tiemposSesion(procesados['contenido'])
     sesiones = desliarSesiones(actualizadoSesiones)
@@ -229,9 +249,14 @@ def analizar(path):
                 host[clave]['numVisitas'] += len(sesion)
             visitasDiarias[clave][usuario] = visitasUsuarioDiarias[usuario]
 
-    print(host)
+    datosBots = obtenerBots(bots)
 
-    return {'procesado': aux['original'], 'visitasPagina': visitasPagina, 'totalPaginas': totalPaginas, 'usuariosPaginas': usuariosPaginas,
+    megaDic = {'procesado': procOriginal, 'visitasPagina': visitasPagina, 'totalPaginas': totalPaginas, 'usuariosPaginas': usuariosPaginas,
             'actualizadoSesiones': actualizadoSesiones, 'visitasDiariasPaginas': visitasDiariasPaginas, 'visitasUsuarioDiarias': visitasUsuarioDiarias,
             'numSesiones': sesionesTotales, 'sesionesOrdenadas': sesiones, 'repeticionExtensiones': extensiones, 'visitasHostDiarias': visitasDiarias,
-            'host': host}
+            'host': host, "datosBots": datosBots}
+
+    path = path.split("/")[len(path.split("/")) - 1]
+    fichero_indice = open("Logs procesados/" + path, "wb")
+    pickle.dump(megaDic, fichero_indice)
+
