@@ -187,7 +187,7 @@ function graficaMixta(id, nombre,nombre2, visitas, paginas, tiempo){
 	const myChart = new Chart( document.getElementById(id),config);
 }
 
-function graficaBarrasTemporal(id, nombre, visitas, fechas, tiempo){
+function graficaBarrasTemporal(id, nombre, nombre2, visitas, fechas, tiempo){
 
 	var r = Math.random() * 255;
 	var g = Math.random() * 255;
@@ -207,7 +207,7 @@ function graficaBarrasTemporal(id, nombre, visitas, fechas, tiempo){
 			order: 1,
 		},
 		{
-		    label: nombre,
+		    label: nombre2,
 		    data: tiempo,
 			borderColor: 'rgb(' + r2 + ',' + g2 + ',' + b2 +')',
 			type: 'line',

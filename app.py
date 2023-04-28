@@ -114,8 +114,11 @@ def sesion():
 #Ruta para ver los datos de un host
 @app.route('/host', methods=['GET', 'POST'])
 def host():
-    usuario = request.url.split("=")[1]
-    return render_template('host.html', usuario=usuario)
+    global log
+    aux = request.url.split("=")[1]
+    host = log['host'][aux] if log else None
+    visitasDiarias = log['visitasHostDiarias'][aux] if log else None
+    return render_template('host.html', direccion=aux, host=host, visitasDiarias=visitasDiarias)
 
 
 #Ruta de reglas

@@ -213,6 +213,25 @@ def analizar(path):
     sesionesTotales = numeroSesiones(procesados['contenido'])
     extensiones = extraccionExtensiones(procesados["contenido"])
 
+    visitasDiarias = dict()
+    host = dict()
+    for clave, contenido in actualizadoSesiones.items():
+        host[clave] = dict()
+        host[clave]['sesiones'] = dict()
+        usuarios = list(contenido.keys())
+        host[clave]['numSesiones'] = 0
+        host[clave]['numVisitas'] = 0
+        visitasDiarias[clave] = dict()
+        for usuario in usuarios:
+            host[clave]['sesiones'][usuario] = contenido[usuario]['sesion']
+            host[clave]['numSesiones'] += len(contenido[usuario]['sesion'])
+            for clave2, sesion in contenido[usuario]['sesion'].items():
+                host[clave]['numVisitas'] += len(sesion)
+            visitasDiarias[clave][usuario] = visitasUsuarioDiarias[usuario]
+
+    print(host)
+
     return {'procesado': aux['original'], 'visitasPagina': visitasPagina, 'totalPaginas': totalPaginas, 'usuariosPaginas': usuariosPaginas,
             'actualizadoSesiones': actualizadoSesiones, 'visitasDiariasPaginas': visitasDiariasPaginas, 'visitasUsuarioDiarias': visitasUsuarioDiarias,
-            'numSesiones': sesionesTotales, 'sesionesOrdenadas': sesiones, 'repeticionExtensiones': extensiones}
+            'numSesiones': sesionesTotales, 'sesionesOrdenadas': sesiones, 'repeticionExtensiones': extensiones, 'visitasHostDiarias': visitasDiarias,
+            'host': host}
