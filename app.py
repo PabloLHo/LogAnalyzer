@@ -127,7 +127,15 @@ def host():
 #Ruta de reglas
 @app.route('/reglas', methods=['GET', 'POST'])
 def reglas():
-    return render_template('reglas.html')
+    global log, registrosPorPagina
+    totalPaginas = list(log['totalPaginas'].items()) if log else None
+    totalVisitasPorTiempos = sorted(log['totalPaginas'].items(), key=lambda item: item[1]['visitas'], reverse=True)
+    paginasSeguidasOrdenado = log['paginasSeguidasOrdenado'][:registrosPorPagina] if log else None
+    ordenadoSinFin = log['ordenadoSinFin'][:registrosPorPagina] if log else None
+    ordenadoFin = log['ordenadoFin'][:registrosPorPagina] if log else None
+    return render_template('reglas.html', totalVisitas=totalPaginas[:registrosPorPagina], totalVisitasReves=totalPaginas[-registrosPorPagina:],
+                           paginasSeguidasOrdenado=paginasSeguidasOrdenado, ordenadoSinFin=ordenadoSinFin, ordenadoFin=ordenadoFin,
+                           totalVisitasPorTiempos=totalVisitasPorTiempos[:registrosPorPagina], totalVisitasPorTiemposReves=totalVisitasPorTiempos[-registrosPorPagina:])
 
 
 @app.route('/subir_log', methods=['POST'])

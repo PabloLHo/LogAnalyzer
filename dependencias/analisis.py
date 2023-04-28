@@ -231,21 +231,7 @@ def obtenerBots(content, tiempoCorte):
     return res
 
 
-# Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
-def analizar(path,proc, procOriginal, bots):
-    if not os.path.exists("Logs procesados") or len(os.listdir("Logs procesados")) == 0:
-        print("Lanzar error")
-
-    tiempoCorte = 1800
-    procesados = proc
-    visitasPagina, totalPaginas, usuariosPaginas = paginasVisitadas(procesados['contenido'])
-    actualizadoSesiones = tiemposSesion(procesados['contenido'])
-    sesiones = desliarSesiones(actualizadoSesiones)
-    visitasDiariasPaginas = diario(procesados['contenido'],tiempoCorte)
-    visitasUsuarioDiarias = usuarioDiario(procesados['contenido'],tiempoCorte)
-    sesionesTotales = numeroSesiones(procesados['contenido'])
-    extensiones = extraccionExtensiones(procesados["contenido"])
-
+def desliarHosts(actualizadoSesiones, visitasUsuarioDiarias):
     visitasDiarias = dict()
     host = dict()
     for clave, contenido in actualizadoSesiones.items():
@@ -261,13 +247,58 @@ def analizar(path,proc, procOriginal, bots):
             for clave2, sesion in contenido[usuario]['sesion'].items():
                 host[clave]['numVisitas'] += len(sesion)
             visitasDiarias[clave][usuario] = visitasUsuarioDiarias[usuario]
+    return host, visitasDiarias
 
+
+def obtenerSeguidas(sesiones):
+    paginasSeguidas = dict()
+    sinFin = dict()
+    fin = dict()
+    for sesion in sesiones:
+        for i in range(len(sesion['visitas'])-1):
+            actual = sesion['visitas'][i]['pagina']
+            siguiente = sesion['visitas'][i+1]['pagina']
+            if (actual,siguiente) in paginasSeguidas:
+                paginasSeguidas[(actual,siguiente)] += 1
+                sinFin[(actual, siguiente)] += 1
+            else:
+                paginasSeguidas[(actual, siguiente)] = 1
+                sinFin[(actual, siguiente)] = 1
+        if (sesion['visitas'][-1]['pagina'],'fin') in paginasSeguidas:
+            paginasSeguidas[(sesion['visitas'][-1]['pagina'],'fin')] += 1
+            fin[(sesion['visitas'][-1]['pagina'],'fin')] += 1
+        else:
+            paginasSeguidas[(sesion['visitas'][-1]['pagina'],'fin')] = 1
+            fin[(sesion['visitas'][-1]['pagina'], 'fin')] = 1
+    ordenado = sorted(paginasSeguidas.items(), key=lambda kv: kv[1], reverse=True)
+    sinFinOrdenado = sorted(sinFin.items(), key=lambda kv: kv[1], reverse=True)
+    finOrdenado = sorted(fin.items(), key=lambda kv: kv[1], reverse=True)
+    return paginasSeguidas, ordenado, sinFinOrdenado, finOrdenado
+
+
+# Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
+def analizar(path,proc, procOriginal, bots):
+    if not os.path.exists("Logs procesados") or len(os.listdir("Logs procesados")) == 0:
+        print("Lanzar error")
+
+    tiempoCorte = 1800
+    procesados = proc
+    visitasPagina, totalPaginas, usuariosPaginas = paginasVisitadas(procesados['contenido'])
+    actualizadoSesiones = tiemposSesion(procesados['contenido'])
+    sesiones = desliarSesiones(actualizadoSesiones)
+    visitasDiariasPaginas = diario(procesados['contenido'],tiempoCorte)
+    visitasUsuarioDiarias = usuarioDiario(procesados['contenido'],tiempoCorte)
+    sesionesTotales = numeroSesiones(procesados['contenido'])
+    extensiones = extraccionExtensiones(procesados["contenido"])
+    host, visitasDiarias = desliarHosts(actualizadoSesiones, visitasUsuarioDiarias)
     datosBots = obtenerBots(bots, tiempoCorte)
+    paginasSeguidas, paginasSeguidasOrdenado, ordenadoSinFin, ordenadoFin = obtenerSeguidas(sesiones)
 
     megaDic = {'procesado': procOriginal, 'visitasPagina': visitasPagina, 'totalPaginas': totalPaginas, 'usuariosPaginas': usuariosPaginas,
             'actualizadoSesiones': actualizadoSesiones, 'visitasDiariasPaginas': visitasDiariasPaginas, 'visitasUsuarioDiarias': visitasUsuarioDiarias,
             'numSesiones': sesionesTotales, 'sesionesOrdenadas': sesiones, 'repeticionExtensiones': extensiones, 'visitasHostDiarias': visitasDiarias,
-            'host': host, "datosBots": datosBots}
+            'host': host, 'datosBots': datosBots, 'paginasSeguidas': paginasSeguidas, 'paginasSeguidasOrdenado': paginasSeguidasOrdenado, 'ordenadoSinFin': ordenadoSinFin,
+            'ordenadoFin': ordenadoFin}
 
     path = path.split("/")[len(path.split("/")) - 1]
     fichero_indice = open("Logs procesados/" + path, "wb")
