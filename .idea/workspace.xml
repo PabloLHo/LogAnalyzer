@@ -5,19 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2281cb86-82d0-4459-9283-02907098e4da" name="Changes" comment="Paginas de sesiones y registros hechas">
-      <change afterPath="$PROJECT_DIR$/templates/invasor.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/invasores.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MW.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MW.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_4_23_23_51__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_4_23_23_51__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_23_10_50__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_4_23_10_50__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/pagina.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/paginas.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/tablaPaginas.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logs procesados/NASA_access_log_REDUC.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs procesados/NASA_access_log_REDUC.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dependencias/analisis.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/analisis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/graficas.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/graficas.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/host.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/host.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/invasor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/invasor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/invasores.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/invasores.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/registros.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registros.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/reglas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reglas.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/sesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sesion.html" afterDir="false" />
@@ -42,11 +41,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Desktop\Repositorios\MW\templates" />
@@ -65,6 +73,7 @@
       <workItem from="1682615922866" duration="4700000" />
       <workItem from="1682668241009" duration="2277000" />
       <workItem from="1682695873313" duration="3809000" />
+      <workItem from="1682720370566" duration="2127000" />
     </task>
     <task id="LOCAL-00001" summary="Paginas de sesiones y registros hechas">
       <created>1682613329136</created>
@@ -98,6 +107,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Paginas de sesiones y registros hechas" />
     <MESSAGE value="Página de cada host actualizada" />
     <option name="LAST_COMMIT_MESSAGE" value="Página de cada host actualizada" />

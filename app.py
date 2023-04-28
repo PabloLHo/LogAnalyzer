@@ -63,7 +63,7 @@ def ajax():
         antes = (int(pag) - 1) * registrosPorPagina
         ahora = int(pag) * registrosPorPagina
         datos_modificados = registros[antes:ahora]
-        return render_template("tabla.html", pagina=int(pag), datos_modificados=datos_modificados)
+        return render_template("tabla.html", datos_modificados=datos_modificados)
 
 
 @app.route('/invasores', methods=['GET', 'POST'])
@@ -111,7 +111,7 @@ def ajaxSesiones():
         antes = (int(pag) - 1) * registrosPorPagina
         ahora = int(pag) * registrosPorPagina
         datos_modificados = sesiones[antes:ahora]
-        return render_template("tablaSesiones.html", pagina=int(pag), datos_modificados=datos_modificados)
+        return render_template("tablaSesiones.html", datos_modificados=datos_modificados)
 
 
 #Ruta para ver los datos de una sesion
@@ -175,9 +175,49 @@ def reglas():
     ordenadoSinFin = log['ordenadoSinFin'][:registrosPorPagina] if log else None
     ordenadoFin = log['ordenadoFin'][:registrosPorPagina] if log else None
     paginasBots = log['paginasBots'] if log else None
+    ordenadoInicio = log['inicioOrdenado'][:registrosPorPagina] if log else None
     return render_template('reglas.html', totalVisitas=totalPaginas[:registrosPorPagina], totalVisitasReves=totalPaginas[-registrosPorPagina:],
                            paginasSeguidasOrdenado=paginasSeguidasOrdenado, ordenadoSinFin=ordenadoSinFin, ordenadoFin=ordenadoFin,
-                           totalVisitasPorTiempos=totalVisitasPorTiempos[:registrosPorPagina], totalVisitasPorTiemposReves=totalVisitasPorTiempos[-registrosPorPagina:], paginasBots=paginasBots)
+                           totalVisitasPorTiempos=totalVisitasPorTiempos[:registrosPorPagina], totalVisitasPorTiemposReves=totalVisitasPorTiempos[-registrosPorPagina:],
+                           paginasBots=paginasBots, ordenadoInicio=ordenadoInicio)
+
+
+@app.route('/paginas', methods=['GET', 'POST'])
+def paginas():
+    global log, registrosPorPagina
+    totalPaginas = list(log['totalPaginas'].items())[0:registrosPorPagina] if log else None
+    tam = len(log['totalPaginas']) if log else None
+    return render_template('paginas.html', totalPaginas=totalPaginas, tam=tam, registrosPorPagina=registrosPorPagina)
+
+
+@app.route('/ajaxPaginas', methods=["GET", "POST"])
+def ajaxPaginas():
+    global log, registrosPorPagina
+    totalPaginas = list(log['totalPaginas'].items()) if log else None
+    if request.method == "POST":
+        pag = request.form['value']
+        antes = (int(pag) - 1) * registrosPorPagina
+        ahora = int(pag) * registrosPorPagina
+        datos_modificados = totalPaginas[antes:ahora]
+        return render_template("tablaPaginas.html", datos_modificados=datos_modificados)
+
+
+@app.route('/pagina', methods=['GET', 'POST'])
+def pagina():
+    global log
+    aux = ''.join(request.url.split("=")[1:])
+    totalPaginas = log['totalPaginas'][aux] if log else None
+    visitasPagina = log['paginasHosts'][aux][:registrosPorPagina] if log else None
+    estructura = log['paginasSeguidasOrdenado'] if log else None
+    paginasSeguidasOrdenado = list()
+    paginasAnterioresOrdenado = list()
+    for (k, v) in estructura:
+        if k[0] == aux:
+            paginasSeguidasOrdenado.append((k[1], v))
+        elif k[1] == aux:
+            paginasAnterioresOrdenado.append((k[0], v))
+    #visitasDiarias = log['visitasHostDiarias'][aux] if log else None
+    return render_template('pagina.html', direccion=aux, totalPaginas=totalPaginas, visitasPagina=visitasPagina, paginasSeguidasOrdenado=paginasSeguidasOrdenado[:registrosPorPagina], paginasAnterioresOrdenado=paginasAnterioresOrdenado[:registrosPorPagina])
 
 
 @app.route('/subir_log', methods=['POST'])

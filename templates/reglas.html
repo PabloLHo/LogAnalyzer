@@ -23,7 +23,8 @@
                         <a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
                         <a class="nav-link" href="/registros"><i class="far fa-file-code"></i><span>Registros</span></a>
                         <a class="nav-link" href="/sesiones"><i class="fas fa-user"></i><span>Sesiones</span></a>
-                        <a class="nav-link active" href="/reglas"><i class="fas fa-long-arrow-alt-right"></i><span>Reglas</span></a>
+                        <a class="nav-link active" href="/reglas"><i class="fas fa-chart-bar"></i><span>Reglas</span></a>
+                        <a class="nav-link" href="/paginas"><i class="fas fa-file-code"></i><span>Páginas</span></a>
                         <a class="nav-link" href="/invasores"><i class="fas fa-bug"></i><span>Invasores</span></a>
                     </li>
                 </ul>
@@ -146,6 +147,34 @@
                         </div>
                         <div class="card-footer">
                             <p><b>Recomendación:</b> Esta página suele ser la que el usuario buscaba. Considera hacerla lo más accesible posible.</p>
+                        </div>
+                    </div>
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Páginas que suelen ser la primera de la sesión</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Secuencia</th>
+                                            <th>Frecuencia</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in ordenadoInicio %}
+                                            <tr>
+                                                <td>{{item[0][0]}} &rarr; {{item[0][1]}}</td>
+                                                <td>{{item[1]}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <p><b>Recomendación:</b> Esta página suele ser por la que entra el usuario. Considera incluir el contenido más importante del sitio.</p>
                         </div>
                     </div>
                     <div class="card shadow mb-3">

@@ -5,6 +5,7 @@ import pickle
 def paginasVisitadas(content):
     paginasVisitadas = dict()
     usuariosPaginas = dict()
+    paginasHosts = dict()
     for host in content:
         for usuario in content[host]:
             for sesion in content[host][usuario]["sesion"]:
@@ -17,6 +18,15 @@ def paginasVisitadas(content):
                     else:
                         paginasVisitadas[content[host][usuario]["sesion"][sesion][visita]["pagina"]] = dict()
                         paginasVisitadas[content[host][usuario]["sesion"][sesion][visita]["pagina"]][usuario] = 1
+
+                    if paginasHosts.keys().__contains__(content[host][usuario]["sesion"][sesion][visita]["pagina"]):
+                        if paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]].keys().__contains__(host):
+                            paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]][host] += 1
+                        else:
+                            paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]][host] = 1
+                    else:
+                        paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]] = dict()
+                        paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]][host] = 1
 
                     if usuariosPaginas.keys().__contains__(usuario):
                         if usuariosPaginas[usuario].keys().__contains__(content[host][usuario]["sesion"][sesion][visita]["pagina"]):
@@ -68,7 +78,9 @@ def paginasVisitadas(content):
         res[usuario] = diccionario_ordenado
 
     totalVisitas = dict(sorted(totalVisitas.items(), key=lambda item: item[1]['visitas'], reverse=True))
-    return paginasVisitadas, totalVisitas, res
+    for pagina, visitas in paginasHosts.items():
+        paginasHosts[pagina] = list(sorted(visitas.items(), key=lambda item: item[1], reverse=True))
+    return paginasVisitadas, totalVisitas, res, paginasHosts
 
 
 def tiemposSesion(content):
@@ -283,7 +295,14 @@ def obtenerSeguidas(sesiones):
     paginasSeguidas = dict()
     sinFin = dict()
     fin = dict()
+    inicio = dict()
     for sesion in sesiones:
+        if ('inicio', sesion['visitas'][0]['pagina']) in paginasSeguidas:
+            paginasSeguidas[('inicio', sesion['visitas'][0]['pagina'])] += 1
+            inicio[('inicio', sesion['visitas'][0]['pagina'])] += 1
+        else:
+            paginasSeguidas[('inicio', sesion['visitas'][0]['pagina'])] = 1
+            inicio[('inicio', sesion['visitas'][0]['pagina'])] = 1
         for i in range(len(sesion['visitas'])-1):
             actual = sesion['visitas'][i]['pagina']
             siguiente = sesion['visitas'][i+1]['pagina']
@@ -302,7 +321,8 @@ def obtenerSeguidas(sesiones):
     ordenado = sorted(paginasSeguidas.items(), key=lambda kv: kv[1], reverse=True)
     sinFinOrdenado = sorted(sinFin.items(), key=lambda kv: kv[1], reverse=True)
     finOrdenado = sorted(fin.items(), key=lambda kv: kv[1], reverse=True)
-    return paginasSeguidas, ordenado, sinFinOrdenado, finOrdenado
+    inicioOrdenado = sorted(inicio.items(), key=lambda kv: kv[1], reverse=True)
+    return paginasSeguidas, ordenado, sinFinOrdenado, finOrdenado, inicioOrdenado
 
 
 # Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
@@ -312,7 +332,7 @@ def analizar(path,proc, procOriginal, bots):
 
     tiempoCorte = 1800
     procesados = proc
-    visitasPagina, totalPaginas, usuariosPaginas = paginasVisitadas(procesados['contenido'])
+    visitasPagina, totalPaginas, usuariosPaginas, paginasHosts = paginasVisitadas(procesados['contenido'])
     actualizadoSesiones = tiemposSesion(procesados['contenido'])
     sesiones = desliarSesiones(actualizadoSesiones)
     visitasDiariasPaginas = diario(procesados['contenido'],tiempoCorte)
@@ -321,13 +341,13 @@ def analizar(path,proc, procOriginal, bots):
     extensiones = extraccionExtensiones(procesados["contenido"])
     host, visitasDiarias = desliarHosts(actualizadoSesiones, visitasUsuarioDiarias)
     datosBots, paginasBots = obtenerBots(bots, tiempoCorte)
-    paginasSeguidas, paginasSeguidasOrdenado, ordenadoSinFin, ordenadoFin = obtenerSeguidas(sesiones)
+    paginasSeguidas, paginasSeguidasOrdenado, ordenadoSinFin, ordenadoFin, inicioOrdenado = obtenerSeguidas(sesiones)
 
     megaDic = {'procesado': procOriginal, 'visitasPagina': visitasPagina, 'totalPaginas': totalPaginas, 'usuariosPaginas': usuariosPaginas,
             'actualizadoSesiones': actualizadoSesiones, 'visitasDiariasPaginas': visitasDiariasPaginas, 'visitasUsuarioDiarias': visitasUsuarioDiarias,
             'numSesiones': sesionesTotales, 'sesionesOrdenadas': sesiones, 'repeticionExtensiones': extensiones, 'visitasHostDiarias': visitasDiarias,
             'host': host, 'datosBots': datosBots, 'paginasSeguidas': paginasSeguidas, 'paginasSeguidasOrdenado': paginasSeguidasOrdenado, 'ordenadoSinFin': ordenadoSinFin,
-            'ordenadoFin': ordenadoFin, "paginasBots": paginasBots}
+            'ordenadoFin': ordenadoFin, "paginasBots": paginasBots, 'paginasHosts': paginasHosts, 'inicioOrdenado': inicioOrdenado}
 
     path = path.split("/")[len(path.split("/")) - 1]
     fichero_indice = open("Logs procesados/" + path, "wb")

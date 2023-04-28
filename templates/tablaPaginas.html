@@ -1,0 +1,7 @@
+{% for item in datos_modificados %}
+    <tr>
+        <td><a href="/pagina?id={{item[0]}}"> {{item[0]}}</a></td>
+        <td>{{item[1]['visitas']}}</td>
+        <td>{{item[1]['tiempo']}}</td>
+    </tr>
+{% endfor %}
