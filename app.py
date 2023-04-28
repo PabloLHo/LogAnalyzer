@@ -26,6 +26,7 @@ def index():
     paginas = len(log['totalPaginas']) if log else None
     visitasPaginas = log['totalPaginas'] if log else None
     extensiones = log['repeticionExtensiones'] if log else None
+    datosBots = log['datosBots'] if log else None
     if log is not None:
         visitasDiarias = dict()
         for usuario in log["visitasUsuarioDiarias"]:
@@ -40,7 +41,7 @@ def index():
 
     return render_template('index.html', log=log, logsExistentes=logsExistentes, tam=tam, numUsuarios=usuarios,
                            numPaginas=paginas, numSesiones=sesiones,
-                           totalPaginas=visitasPaginas, extensiones=extensiones, visitasDiarias=visitasDiarias)
+                           totalPaginas=visitasPaginas, extensiones=extensiones, visitasDiarias=visitasDiarias, datosBots=datosBots)
 
 
 #Ruta para ver los registros
@@ -103,10 +104,12 @@ def sesion():
             extension = extension.split(".")[len(extension.split(".")) - 1]
             if visita['pagina'] not in porPaginas :
                 porPaginas[visita['pagina']] = 1
-                extensiones[extension] = 1
             else :
                 porPaginas[visita['pagina']] += 1
+            if extensiones.keys().__contains__(extension):
                 extensiones[extension] += 1
+            else:
+                extensiones[extension] = 1
 
     return render_template('sesion.html', sesion=sesion, columnas=columnas, porPaginas=porPaginas, extensiones=extensiones)
 

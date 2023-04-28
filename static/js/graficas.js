@@ -29,6 +29,13 @@ function graficaBarras(id, nombre, visitas, paginas){
 	    legend: {
             display: false
         },
+        scales: {
+            yAxes: [{
+              ticks: {
+                min: 0 // establece el valor mínimo en el eje Y a 10
+              }
+            }]
+          }
 	  },
 	};
 
@@ -139,7 +146,7 @@ function graficaDispersion(id, nombre, visitas, tiempo, paginas){
 	const myChart = new Chart( document.getElementById(id),config);
 }
 
-function graficaMixta(id, nombre,nombre2, visitas, paginas, tiempo){
+function graficaMixta(id, nombre,nombre2, visitas, paginas, tiempo, ticksX){
     var r = Math.random() * 255;
 	var g = Math.random() * 255;
 	var b = Math.random() * 255;
@@ -171,13 +178,16 @@ function graficaMixta(id, nombre,nombre2, visitas, paginas, tiempo){
     scales: {
       xAxes: [{
         ticks: {
-          display: false,
+          display: ticksX,
         }
       }],
       yAxes: [{
         scaleLabel: {
           display: true,
           labelString: 'Visitas (Barra) y Minutos de uso (Linea)'
+        },
+        ticks: {
+                min: 0 // establece el valor mínimo en el eje Y a 10
         }
       }]
     }

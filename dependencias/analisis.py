@@ -195,25 +195,38 @@ def extraccionExtensiones(content):
     return extensiones
 
 
-def obtenerBots(content):
+def obtenerBots(content, tiempoCorte):
     res = dict()
 
     for host in content:
-        if "bot" in host:
-            if res.keys().__contains__("bot"):
-                i = 0
+        for visita in range(len(content[host])):
+            if "bot" in host:
+                if res.keys().__contains__("bot"):
+                    res["bot"]["numeroVisitas"] += 1
+                    res["bot"]["visitas"].append(content[host][visita])
+                    if (visita + 1) < len(content[host]):
+                        if (content[host][visita]["Timestamp"] - content[host][visita + 1]["Timestamp"]) < tiempoCorte:
+                            res["bot"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]
+                else:
+                    res["bot"] = {"numeroVisitas": 0, "visitas": list(), "tiempoUsado": 0}
+            elif "spider" in host:
+                if res.keys().__contains__("spider"):
+                    res["spider"]["numeroVisitas"] += 1
+                    res["spider"]["visitas"].append(content[host][visita])
+                    if (visita + 1) < len(content[host]):
+                        if (content[host][visita]["Timestamp"] - content[host][visita + 1]["Timestamp"]) < tiempoCorte:
+                            res["spider"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]
+                else:
+                    res["spider"] = {"numeroVisitas": 0, "visitas": list(), "tiempoUsado": 0}
             else:
-                res["bot"] = {"numeroVisitas": 0, "visitas": list()}
-        elif "spider" in host:
-            if res.keys().__contains__("spider"):
-                i = 0
-            else:
-                res["spider"] = {"numeroVisitas": 0, "visitas": list()}
-        else:
-            if res.keys().__contains__("crawler"):
-                i = 0
-            else:
-                res["crawler"] = {"numeroVisitas": 0, "visitas": list()}
+                if res.keys().__contains__("crawler"):
+                    res["crawler"]["numeroVisitas"] += 1
+                    res["crawler"]["visitas"].append(content[host][visita])
+                    if (visita + 1) < len(content[host]):
+                        if (content[host][visita]["Timestamp"] - content[host][visita + 1]["Timestamp"]) < tiempoCorte:
+                            res["crawler"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]
+                else:
+                    res["crawler"] = {"numeroVisitas": 0, "visitas": list(), "tiempoUsado": 0}
 
     return res
 
@@ -249,7 +262,7 @@ def analizar(path,proc, procOriginal, bots):
                 host[clave]['numVisitas'] += len(sesion)
             visitasDiarias[clave][usuario] = visitasUsuarioDiarias[usuario]
 
-    datosBots = obtenerBots(bots)
+    datosBots = obtenerBots(bots, tiempoCorte)
 
     megaDic = {'procesado': procOriginal, 'visitasPagina': visitasPagina, 'totalPaginas': totalPaginas, 'usuariosPaginas': usuariosPaginas,
             'actualizadoSesiones': actualizadoSesiones, 'visitasDiariasPaginas': visitasDiariasPaginas, 'visitasUsuarioDiarias': visitasUsuarioDiarias,

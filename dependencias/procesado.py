@@ -13,8 +13,8 @@ def procesar(path):
 
     procOriginal = parseador.procesarLog(path)
     proc = limitarExtensiones(procOriginal, ("html", "htm", "pdf", "asp", "exe", "txt", "doc", "ppt", "xls", "xml", ""))
-    proc, bots = eliminarBots(proc)
     proc = definirTiempos(proc)
+    proc, bots = eliminarBots(proc)
     proc = identificarUsuarios(proc)
     tiempoCorte = 1800
     proc = definirSesiones(proc, tiempoCorte)
