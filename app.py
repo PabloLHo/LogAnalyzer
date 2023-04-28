@@ -121,7 +121,22 @@ def host():
     aux = request.url.split("=")[1]
     host = log['host'][aux] if log else None
     visitasDiarias = log['visitasHostDiarias'][aux] if log else None
-    return render_template('host.html', direccion=aux, host=host, visitasDiarias=visitasDiarias)
+
+    paginasHost = dict()
+
+    for usuario in host['sesiones']:
+        for sesion in host['sesiones'][usuario]:
+            for visita in range(len(host['sesiones'][usuario][sesion]["visitas"])):
+                pagina = host['sesiones'][usuario][sesion]["visitas"][visita]["pagina"]
+                if not paginasHost.keys().__contains__(pagina):
+                    paginasHost[pagina] = { "visitas": 0, "tiempo": 0}
+                paginasHost[pagina]["visitas"] += 1
+                if (visita + 1) < len(host['sesiones'][usuario][sesion]["visitas"]):
+                    if (host['sesiones'][usuario][sesion]["visitas"][visita + 1]["Timestamp"] - host['sesiones'][usuario][sesion]["visitas"][visita]["Timestamp"]) < 1800:
+                        paginasHost[pagina]["tiempo"] += host['sesiones'][usuario][sesion]["visitas"][visita + 1]["Timestamp"] - host['sesiones'][usuario][sesion]["visitas"][visita]["Timestamp"]
+
+    return render_template('host.html', direccion=aux, host=host, visitasDiarias=visitasDiarias, paginasHost=paginasHost)
+
 
 
 #Ruta de reglas

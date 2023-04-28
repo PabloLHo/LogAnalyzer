@@ -136,13 +136,17 @@ def usuarioDiario(content, tiempoCorte):
                     if visitasDiarias.keys().__contains__(usuario):
                         if visitasDiarias[usuario].keys().__contains__(fecha):
                             visitasDiarias[usuario][fecha]["visitas"].append(content[host][usuario]["sesion"][sesion]["visitas"][visita])
+                            visitasDiarias[usuario][fecha]["numeroVisitas"] += 1
                         else:
-                            visitasDiarias[usuario][fecha] = {"numeroVisitas": 0, "visitas": list(), "tiempo": 0}
+                            visitasDiarias[usuario][fecha] = {"numeroVisitas": 1, "visitas": list(), "tiempo": 0}
                             visitasDiarias[usuario][fecha]["visitas"].append(content[host][usuario]["sesion"][sesion]["visitas"][visita])
                     else:
                         visitasDiarias[usuario] = dict()
-                        visitasDiarias[usuario][fecha] = {"numeroVisitas": 0, "visitas": list(), "tiempo": 0}
+                        visitasDiarias[usuario][fecha] = {"numeroVisitas": 1, "visitas": list(), "tiempo": 0}
                         visitasDiarias[usuario][fecha]["visitas"].append(content[host][usuario]["sesion"][sesion]["visitas"][visita])
+                    if (visita + 1) < len(visitasDiarias[usuario][fecha]["numeroVisitas"]):
+                        if (host['sesiones'][usuario][sesion]["visitas"][visita + 1]["Timestamp"] - host['sesiones'][usuario][sesion]["visitas"][visita]["Timestamp"]) < 1800:
+                            visitasDiarias[usuario][fecha]["tiempo"] += host['sesiones'][usuario][sesion]["visitas"][visita + 1]["Timestamp"] - host['sesiones'][usuario][sesion]["visitas"][visita]["Timestamp"]
 
     for usuario in visitasDiarias:
         for fecha in visitasDiarias[usuario]:
@@ -201,32 +205,32 @@ def obtenerBots(content, tiempoCorte):
     for host in content:
         for visita in range(len(content[host])):
             if "bot" in host:
-                if res.keys().__contains__("bot"):
-                    res["bot"]["numeroVisitas"] += 1
-                    res["bot"]["visitas"].append(content[host][visita])
-                    if (visita + 1) < len(content[host]):
-                        if (content[host][visita]["Timestamp"] - content[host][visita + 1]["Timestamp"]) < tiempoCorte:
-                            res["bot"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]
-                else:
+                if not res.keys().__contains__("bot"):
                     res["bot"] = {"numeroVisitas": 0, "visitas": list(), "tiempoUsado": 0}
+                res["bot"]["numeroVisitas"] += 1
+                res["bot"]["visitas"].append(content[host][visita])
+                if (visita + 1) < len(content[host]):
+                    if (content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]) < tiempoCorte:
+                        res["bot"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita][
+                            "Timestamp"]
             elif "spider" in host:
-                if res.keys().__contains__("spider"):
-                    res["spider"]["numeroVisitas"] += 1
-                    res["spider"]["visitas"].append(content[host][visita])
-                    if (visita + 1) < len(content[host]):
-                        if (content[host][visita]["Timestamp"] - content[host][visita + 1]["Timestamp"]) < tiempoCorte:
-                            res["spider"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]
-                else:
+                if not res.keys().__contains__("spider"):
                     res["spider"] = {"numeroVisitas": 0, "visitas": list(), "tiempoUsado": 0}
+                res["spider"]["numeroVisitas"] += 1
+                res["spider"]["visitas"].append(content[host][visita])
+                if (visita + 1) < len(content[host]):
+                    if (content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]) < tiempoCorte:
+                        res["spider"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita][
+                            "Timestamp"]
             else:
-                if res.keys().__contains__("crawler"):
-                    res["crawler"]["numeroVisitas"] += 1
-                    res["crawler"]["visitas"].append(content[host][visita])
-                    if (visita + 1) < len(content[host]):
-                        if (content[host][visita]["Timestamp"] - content[host][visita + 1]["Timestamp"]) < tiempoCorte:
-                            res["crawler"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]
-                else:
+                if not res.keys().__contains__("crawler"):
                     res["crawler"] = {"numeroVisitas": 0, "visitas": list(), "tiempoUsado": 0}
+                res["crawler"]["numeroVisitas"] += 1
+                res["crawler"]["visitas"].append(content[host][visita])
+                if (visita + 1) < len(content[host]):
+                    if (content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]) < tiempoCorte:
+                        res["crawler"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita][
+                            "Timestamp"]
 
     return res
 
@@ -278,7 +282,7 @@ def obtenerSeguidas(sesiones):
 
 # Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
 def analizar(path,proc, procOriginal, bots):
-    if not os.path.exists("Logs procesados") or len(os.listdir("Logs procesados")) == 0:
+    if not os.path.exists("Logs procesados"):
         print("Lanzar error")
 
     tiempoCorte = 1800

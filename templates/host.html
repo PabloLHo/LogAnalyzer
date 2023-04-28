@@ -63,7 +63,80 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card shadow mb-3">
+
+                                </div>
+                            </div>
+
+                    </div>
+                    <div class="row">
+                            <div class="col-lg-7 col-xl-5">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h6 class="text-primary fw-bold m-0">Comparativa sesiones</h6>
+                                        <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
+                                            <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
+                                                <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Menos visitadas</a><a class="dropdown-item" href="#">&nbsp;Mas visitadas</a>
+                                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Todas las páginas</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-area"><canvas id="visitasPorSesion"></canvas></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-xl-5">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h6 class="text-primary fw-bold m-0">Páginas mas visitadas</h6>
+                                        <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
+                                            <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
+                                                <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
+                                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-area"><canvas id="visitasTotalesCircular"></canvas></div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                    <div class="row">
+                            <div class="col-lg-7 col-xl-5">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h6 class="text-primary fw-bold m-0">Relacion Visitas - Tiempo páginas visitadas</h6>
+                                        <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
+                                            <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
+                                                <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Menos visitadas</a><a class="dropdown-item" href="#">&nbsp;Mas visitadas</a>
+                                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Todas las páginas</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-area"><canvas id="visitasPorPagina"></canvas></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-xl-5">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h6 class="text-primary fw-bold m-0">Uso diario de cada página</h6>
+                                        <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
+                                            <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
+                                                <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
+                                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-area"><canvas id="usoDiario"></canvas></div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                    <div class="card shadow mb-3">
                                         <div class="card-header py-3">
                                             <p class="text-primary m-0 fw-bold">Sesiones del host</p>
                                         </div>
@@ -96,10 +169,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
@@ -114,18 +183,49 @@
     <script src="static/js/bs-init.js"></script>
     <script src="static/js/theme.js"></script>
     <script>
-        {% if porPaginas %}
             window.onload = function() {
-                paginas = [];
+                sesion = [];
                 visitas = [];
-                {% for pagina in porPaginas %}
-                    paginas.push("{{pagina}}");
-                    visitas.push({{porPaginas[pagina]}})
+                tiempo = [];
+
+                paginas = [];
+                visitasPagina = [];
+                tiempoPagina = [];
+
+                paginas = [];
+                visitasPagina = [];
+                tiempoPagina = [];
+
+                tiempoDia = [];
+                visitasDiarias = [];
+                fechas = [];
+
+                {% for usuario in host['sesiones'] %}
+                    {% for sesion in host['sesiones'][usuario] %}
+                        sesion.push("{{sesion}}");
+                        tiempo.push({{host['sesiones'][usuario][sesion]['tiempoSesion'] / 60}});
+                        visitas.push({{host['sesiones'][usuario][sesion]['visitas']|length}});
+                    {%endfor%}
                 {%endfor%}
 
-                graficaBarras("visitasPorPagina", "Visitas por página", visitas, paginas);
+                {% for pagina in paginasHost %}
+                    paginas.push("{{pagina}}");
+                    tiempoPagina.push({{paginasHost[pagina]["tiempo"] / 60}});
+                    visitasPagina.push({{paginasHost[pagina]["visitas"]}});
+                {%endfor%}
+
+                {% for usuario in visitasDiarias %}
+                    {% for dia in visitasDiarias[usuario] %}
+                        fechas.push('{{dia}}');
+                        visitasDiarias.push({{visitasDiarias[usuario][dia]["numeroVisitas"]}});
+                        tiempoDia.push({{visitasDiarias[usuario][dia]["tiempo"] / 60}});
+                    {%endfor%}
+                {%endfor%}
+                graficaMixta("visitasPorSesion", "Visitas por página", "Tiempo por pagina", visitas, sesion, tiempo, true);
+                graficaMixta("visitasPorPagina", "Visitas por página", "Tiempo por pagina", visitasPagina, paginas, tiempoPagina, false);
+                graficaBarrasTemporal("usoDiario", "Visitas", "Tiempo", visitasDiarias, fechas, tiempoDia, "min");
+                graficaCircular("visitasTotalesCircular", "Visitas por página", visitasPagina, paginas);
             }
-        {% endif %}
     </script>
 </body>
 

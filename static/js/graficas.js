@@ -115,7 +115,7 @@ function graficaDispersion(id, nombre, visitas, tiempo, paginas){
                 scaleLabel: {
                     display: true,
                     labelString: 'Tiempo uso (min)'
-                }
+                },
             }]
         },
         tooltips: {
@@ -160,14 +160,15 @@ function graficaMixta(id, nombre,nombre2, visitas, paginas, tiempo, ticksX){
 			backgroundColor: 'rgb(' + r + ',' + g + ',' + b +')',
 			borderColor: 'rgb(' + r + ',' + g + ',' + b +')',
 			data: visitas,
-			order: 1,
+			order: 0,
 		},
 		{
 		    label: nombre2,
 		    data: tiempo,
 			borderColor: 'rgb(' + r2 + ',' + g2 + ',' + b2 +')',
 			type: 'line',
-			order: 0,
+			zIndex: 2,
+			order: 1,
 		}]
 	};
 
@@ -197,7 +198,7 @@ function graficaMixta(id, nombre,nombre2, visitas, paginas, tiempo, ticksX){
 	const myChart = new Chart( document.getElementById(id),config);
 }
 
-function graficaBarrasTemporal(id, nombre, nombre2, visitas, fechas, tiempo){
+function graficaBarrasTemporal(id, nombre, nombre2, visitas, fechas, tiempo, horario){
 
 	var r = Math.random() * 255;
 	var g = Math.random() * 255;
@@ -259,7 +260,7 @@ function graficaBarrasTemporal(id, nombre, nombre2, visitas, fechas, tiempo){
                 yAxes: [{
                 scaleLabel: {
                     display: true,
-                    labelString: 'Visitas y Tiempo uso (h)'
+                    labelString: 'Visitas y Tiempo uso (' + horario + ')'
                 }
                 }]
                 }

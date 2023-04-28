@@ -48,6 +48,7 @@
                         <a class="nav-link" href="/registros"><i class="far fa-file-code"></i><span>Registros</span></a>
                         <a class="nav-link" href="/sesiones"><i class="fas fa-user"></i><span>Sesiones</span></a>
                         <a class="nav-link" href="/reglas"><i class="fas fa-long-arrow-alt-right"></i><span>Reglas</span></a>
+                        <a class="nav-link" href="/reglas"><i class="fas fa-long-arrow-alt-right"></i><span>Invasores</span></a>
                     </li>
                 </ul>
             </div>
@@ -197,7 +198,7 @@
                             <div class="col-lg-7 col-xl-5">
                                 <div class="card shadow mb-4">
                                     <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h6 class="text-primary fw-bold m-0">Relación Tiempo - Visitas</h6>
+                                        <h6 class="text-primary fw-bold m-0">Relación Tiempo - Visitas invasores</h6>
                                         <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
                                             <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
                                                 <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Menos visitadas</a><a class="dropdown-item" href="#">&nbsp;Mas visitadas</a>
@@ -213,7 +214,7 @@
                             <div class="col-lg-5 col-xl-5">
                                 <div class="card shadow">
                                     <div class="card-header py-3">
-                                        <p class="text-primary m-0 fw-bold">Información sobre extensiones</p>
+                                        <p class="text-primary m-0 fw-bold">Frecuencia invasores</p>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive table mt-2" id="dataTable2" role="grid" aria-describedby="dataTable_info">
@@ -365,7 +366,7 @@
                 graficaDispersion("visitasTiempoDispersion", "Relación Tiempo - Visitas", visitas, tiempo, paginas);
                 graficaMixta("visitasTotalesPagina", "Visitas por página", "Tiempo por pagina", visitas,paginas, tiempo, false);
                 graficaCircular("visitasTotalesCircular", "Visitas por página", visitas, paginas);
-                graficaBarrasTemporal("temporalVisitas", "Visitas", "Tiempo", visitasDiarias, fechas, tiempoDia);
+                graficaBarrasTemporal("temporalVisitas", "Visitas", "Tiempo", visitasDiarias, fechas, tiempoDia, "h");
 
                 graficaMixta("visitasBots", "Visitas por invasor", "Tiempo por pagina", visitasBots,bots, tiempoBots, true);
             }
