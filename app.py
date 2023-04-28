@@ -66,6 +66,32 @@ def ajax():
         return render_template("tabla.html", pagina=int(pag), datos_modificados=datos_modificados)
 
 
+@app.route('/invasores', methods=['GET', 'POST'])
+def bots():
+    global log
+    bots = log['datosBots'] if log else None
+    tam = dict()
+    for bot in bots:
+        tam[bot] = len(bots[bot]["host"])
+    columnas = ["host", "numeroVisitas", "tiempoUsado"]
+    return render_template('invasores.html', bots=bots, columnas=columnas, tam=tam)
+
+
+@app.route('/invasor', methods=['GET', 'POST'])
+def bot():
+    global log
+    host = request.url.split("=")[1]
+    if "bot" in host:
+        tipo = "bot"
+    elif "spider" in host:
+        tipo = "spider"
+    else:
+        tipo = "crawler"
+    bots = log['datosBots'] if log else None
+    columnas = log['procesado']['columnas'] if log else None
+    return render_template('invasor.html', host=host, tipo=tipo, bots=bots, columnas=columnas)
+
+
 #Ruta para ver las sesiones
 @app.route('/sesiones', methods=['GET', 'POST'])
 def sesiones():
@@ -148,9 +174,10 @@ def reglas():
     paginasSeguidasOrdenado = log['paginasSeguidasOrdenado'][:registrosPorPagina] if log else None
     ordenadoSinFin = log['ordenadoSinFin'][:registrosPorPagina] if log else None
     ordenadoFin = log['ordenadoFin'][:registrosPorPagina] if log else None
+    paginasBots = log['paginasBots'] if log else None
     return render_template('reglas.html', totalVisitas=totalPaginas[:registrosPorPagina], totalVisitasReves=totalPaginas[-registrosPorPagina:],
                            paginasSeguidasOrdenado=paginasSeguidasOrdenado, ordenadoSinFin=ordenadoSinFin, ordenadoFin=ordenadoFin,
-                           totalVisitasPorTiempos=totalVisitasPorTiempos[:registrosPorPagina], totalVisitasPorTiemposReves=totalVisitasPorTiempos[-registrosPorPagina:])
+                           totalVisitasPorTiempos=totalVisitasPorTiempos[:registrosPorPagina], totalVisitasPorTiemposReves=totalVisitasPorTiempos[-registrosPorPagina:], paginasBots=paginasBots)
 
 
 @app.route('/subir_log', methods=['POST'])

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Sesion {{sesion['id']}} - Web Analyzer</title>
+    <title>{{tipo}} - Web Analyzer</title>
     <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="static/fonts/fontawesome-all.min.css">
@@ -22,9 +22,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
                         <a class="nav-link" href="/registros"><i class="far fa-file-code"></i><span>Registros</span></a>
-                        <a class="nav-link active" href="/sesiones"><i class="fas fa-user"></i><span>Sesiones</span></a>
+                        <a class="nav-link" href="/sesiones"><i class="fas fa-user"></i><span>Sesiones</span></a>
                         <a class="nav-link" href="/reglas"><i class="fas fa-long-arrow-alt-right"></i><span>Reglas</span></a>
-                        <a class="nav-link" href="/invasores"><i class="fas fa-bug"></i><span>Invasores</span></a>
+                        <a class="nav-link active" href="/invasores"><i class="fas fa-bug"></i><span>Invasores</span></a>
                     </li>
                 </ul>
             </div>
@@ -33,29 +33,26 @@
             <div id="content">
                 <div class="container-fluid">
                     <br>
-                    <h3 class="text-dark mb-4">Sesión {{sesion['id']}}</h3>
+                    <h3 class="text-dark mb-4">{{tipo | upper}}</h3>
                     <div class="row mb-3">
                             <div class="row">
                                 <div class="col">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Datos de la sesión</p>
+                                            <p class="text-primary m-0 fw-bold">Datos del invasor</p>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <div class="mb-3"><label class="form-label"><strong>Host</strong></label><p>{{ sesion['host'] }}</p></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="mb-3"><label class="form-label"><strong>Usuario</strong></label><p>{{ sesion['usuario'] }}</p></div>
+                                                    <div class="mb-3"><label class="form-label"><strong>Host</strong></label><p>{{ host }}</p></div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col">
-                                                    <div class="mb-3"><label class="form-label"><strong>Tiempo de sesión</strong></label><p>{{ sesion['tiempoSesion'] }}</p></div>
+                                                    <div class="mb-3"><label class="form-label"><strong>Tiempo de visitas</strong></label><p>{{ bots[tipo]["host"][host]['tiempoUsado'] }}</p></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="mb-3"><label class="form-label"><strong>Número de visitas</strong></label><p>{{ sesion['visitas'] | length }}</p></div>
+                                                    <div class="mb-3"><label class="form-label"><strong>Número de visitas</strong></label><p>{{ bots[tipo]["host"][host]['numeroVisitas'] }}</p></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,22 +66,20 @@
                                                 <table class="table my-0" id="data">
                                                     <thead>
                                                         <tr>
-                                                            <th>ID de sesión</th>
-                                                            <th>Host</th>
-                                                            <th>Usuario</th>
-                                                            <th>Tiempo de la sesión (seg)</th>
-                                                            <th>Número de visitas</th>
+                                                            {% for i in columnas %}
+                                                                <th>{{i}}</th>
+                                                            {% endfor %}
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tabla">
-                                                        {% for sesion in sesiones %}
-                                                            <tr>
-                                                                <td><a id="sesion" href="/sesion?id={{sesion['id']}}"> {{sesion['id']}}</a></td>
-                                                                <td><a id="host" href="/host?host={{sesion['host']}}"> {{sesion['host']}}</a></td>
-                                                                <td>{{sesion['usuario']}}</td>
-                                                                <td>{{sesion['tiempoSesion']}}</td>
-                                                                <td>{{sesion['visitas'] | length}}</td>
-                                                            </tr>
+                                                        {% for linea in bots[tipo]["host"][host]["visitas"] %}
+                                                                <tr>
+                                                                {% for campo, valor in linea.items() %}
+                                                                    {% if campo in columnas %}
+                                                                        <td>{{valor}}</td>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                                </tr>
                                                         {% endfor %}
                                                     </tbody>
                                                 </table>
@@ -95,45 +90,24 @@
                                     <div class="col-lg-5 col-xl-5">
                                         <div class="card shadow mb-4">
                                             <div class="card-header py-3">
-                                                <p class="text-primary m-0 fw-bold">Visitas por página</p>
+                                                <p class="text-primary m-0 fw-bold">Visitas totales y tiempo de navegación</p>
                                             </div>
                                             <div class="card-body">
-                                                <div class="chart-area"><canvas id="visitasPorPagina"></canvas></div>
+                                                <div class="chart-area"><canvas id="visitasTotales"></canvas></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-5 col-xl-5">
                                         <div class="card shadow mb-4">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Información de registros</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive table mt-2" id="dataTable2" role="grid" aria-describedby="dataTable_info">
-                                                    <table class="table my-0" id="data2">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Extension</th>
-                                                                <th>Repetición</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="tabla2">
-                                                            {% for extension in extensiones %}
-                                                                    <tr>
-                                                                        {% if extension == "" %}
-                                                                            <td>Sin extensión / Blanco</td>
-                                                                        {% else %}
-                                                                            <td>{{extension}}</td>
-                                                                        {% endif %}
-                                                                        <td>{{extensiones[extension]}}</td>
-                                                                    </tr>
-                                                            {% endfor %}
-                                                        </tbody>
-                                                    </table>
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Proporción visitas totales</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="chart-area"><canvas id="visitas"></canvas></div>
                                             </div>
                                         </div>
-                                        </div>
                                     </div>
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                     </div>
@@ -152,18 +126,26 @@
     <script src="static/js/bs-init.js"></script>
     <script src="static/js/theme.js"></script>
     <script>
-        {% if porPaginas %}
             window.onload = function() {
                 paginas = [];
+                paginas.push('{{host}}');
+                paginas.push('Todos los {{tipo}}');
+                paginasCircular = [];
+                paginasCircular.push('{{host}}');
+                paginasCircular.push('Resto de {{tipo}}');
                 visitas = [];
-                {% for pagina in porPaginas %}
-                    paginas.push("{{pagina}}");
-                    visitas.push({{porPaginas[pagina]}})
-                {%endfor%}
+                visitasCircular = [];
+                visitas.push({{bots[tipo]["host"][host]["numeroVisitas"]}});
+                visitas.push({{bots[tipo]["numeroVisitas"]}});
+                visitasCircular.push({{bots[tipo]["host"][host]["numeroVisitas"]}});
+                visitasCircular.push({{bots[tipo]["numeroVisitas"] - bots[tipo]["host"][host]["numeroVisitas"]}});
+                tiempo = [];
+                tiempo.push({{bots[tipo]["host"][host]["tiempoUsado"] / 60}});
+                tiempo.push({{bots[tipo]["tiempoUsado"]}} / 60);
 
-                graficaBarras("visitasPorPagina", "Visitas por página", visitas, paginas);
+                graficaMixta("visitasTotales", "Visitas totales", "Tiempo navegación", visitas, paginas,tiempo, true);
+                graficaCircular("visitas", "Proporción visitas", visitasCircular, paginasCircular);
             }
-        {% endif %}
     </script>
 </body>
 

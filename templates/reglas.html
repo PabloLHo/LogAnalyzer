@@ -24,6 +24,7 @@
                         <a class="nav-link" href="/registros"><i class="far fa-file-code"></i><span>Registros</span></a>
                         <a class="nav-link" href="/sesiones"><i class="fas fa-user"></i><span>Sesiones</span></a>
                         <a class="nav-link active" href="/reglas"><i class="fas fa-long-arrow-alt-right"></i><span>Reglas</span></a>
+                        <a class="nav-link" href="/invasores"><i class="fas fa-bug"></i><span>Invasores</span></a>
                     </li>
                 </ul>
             </div>
@@ -208,8 +209,23 @@
                             <p class="text-primary m-0 fw-bold">Páginas visitadas por bots</p>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6"></div>
+                            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Página</th>
+                                            <th>Número visitas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in paginasBots %}
+                                            <tr>
+                                                <td>{{item}}</td>
+                                                <td>{{paginasBots[item]}}
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div class="card-footer">

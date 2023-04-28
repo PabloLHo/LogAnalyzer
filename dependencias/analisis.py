@@ -144,9 +144,9 @@ def usuarioDiario(content, tiempoCorte):
                         visitasDiarias[usuario] = dict()
                         visitasDiarias[usuario][fecha] = {"numeroVisitas": 1, "visitas": list(), "tiempo": 0}
                         visitasDiarias[usuario][fecha]["visitas"].append(content[host][usuario]["sesion"][sesion]["visitas"][visita])
-                    if (visita + 1) < len(visitasDiarias[usuario][fecha]["numeroVisitas"]):
-                        if (host['sesiones'][usuario][sesion]["visitas"][visita + 1]["Timestamp"] - host['sesiones'][usuario][sesion]["visitas"][visita]["Timestamp"]) < 1800:
-                            visitasDiarias[usuario][fecha]["tiempo"] += host['sesiones'][usuario][sesion]["visitas"][visita + 1]["Timestamp"] - host['sesiones'][usuario][sesion]["visitas"][visita]["Timestamp"]
+                    if (visita + 1) < len(content[host][usuario]["sesion"][sesion]["visitas"]):
+                        if (content[host][usuario]["sesion"][sesion]["visitas"][visita + 1]["Timestamp"] - content[host][usuario]["sesion"][sesion]["visitas"][visita]["Timestamp"]) < 1800:
+                            visitasDiarias[usuario][fecha]["tiempo"] += content[host][usuario]["sesion"][sesion]["visitas"][visita + 1]["Timestamp"] - content[host][usuario]["sesion"][sesion]["visitas"][visita]["Timestamp"]
 
     for usuario in visitasDiarias:
         for fecha in visitasDiarias[usuario]:
@@ -201,38 +201,63 @@ def extraccionExtensiones(content):
 
 def obtenerBots(content, tiempoCorte):
     res = dict()
-
+    paginasBots = dict()
     for host in content:
         for visita in range(len(content[host])):
             if "bot" in host:
                 if not res.keys().__contains__("bot"):
-                    res["bot"] = {"numeroVisitas": 0, "visitas": list(), "tiempoUsado": 0}
+                    res["bot"] = {"numeroVisitas": 0, "host": dict(), "visitas": list(), "tiempoUsado": 0}
+                if not res["bot"]["host"].keys().__contains__(host):
+                    res["bot"]["host"][host] = {"visitas": list(), "numeroVisitas": 0, "tiempoUsado": 0}
                 res["bot"]["numeroVisitas"] += 1
                 res["bot"]["visitas"].append(content[host][visita])
                 if (visita + 1) < len(content[host]):
                     if (content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]) < tiempoCorte:
-                        res["bot"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita][
-                            "Timestamp"]
+                        res["bot"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]
+                        res["bot"]["host"][host]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]
+                if not paginasBots.keys().__contains__(content[host][visita]["pagina"]):
+                    paginasBots[content[host][visita]["pagina"]] = 0
+                paginasBots[content[host][visita]["pagina"]] += 1
+                res["bot"]["host"][host]["visitas"].append(content[host][visita])
+                res["bot"]["host"][host]["numeroVisitas"] += 1
             elif "spider" in host:
                 if not res.keys().__contains__("spider"):
-                    res["spider"] = {"numeroVisitas": 0, "visitas": list(), "tiempoUsado": 0}
+                    res["spider"] = {"numeroVisitas": 0, "host": dict(), "visitas": list(), "tiempoUsado": 0}
+                if not res["spider"]["host"].keys().__contains__(host):
+                    res["spider"]["host"][host] = {"visitas": list(), "numeroVisitas": 0, "tiempoUsado": 0}
                 res["spider"]["numeroVisitas"] += 1
                 res["spider"]["visitas"].append(content[host][visita])
                 if (visita + 1) < len(content[host]):
                     if (content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]) < tiempoCorte:
                         res["spider"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita][
                             "Timestamp"]
+                        res["spider"]["host"][host]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - \
+                                                                   content[host][visita]["Timestamp"]
+                if not paginasBots.keys().__contains__(content[host][visita]["pagina"]):
+                    paginasBots[content[host][visita]["pagina"]] = 0
+                paginasBots[content[host][visita]["pagina"]] += 1
+                res["spider"]["host"][host]["visitas"].append(content[host][visita])
+                res["spider"]["host"][host]["numeroVisitas"] += 1
             else:
                 if not res.keys().__contains__("crawler"):
-                    res["crawler"] = {"numeroVisitas": 0, "visitas": list(), "tiempoUsado": 0}
+                    res["crawler"] = {"numeroVisitas": 0, "host": dict(), "visitas": list(), "tiempoUsado": 0}
+                if not res["crawler"]["host"].keys().__contains__(host):
+                    res["crawler"]["host"][host] = {"visitas": list(), "numeroVisitas": 0, "tiempoUsado": 0}
                 res["crawler"]["numeroVisitas"] += 1
                 res["crawler"]["visitas"].append(content[host][visita])
                 if (visita + 1) < len(content[host]):
                     if (content[host][visita + 1]["Timestamp"] - content[host][visita]["Timestamp"]) < tiempoCorte:
                         res["crawler"]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - content[host][visita][
                             "Timestamp"]
+                        res["bot"]["host"][host]["tiempoUsado"] += content[host][visita + 1]["Timestamp"] - \
+                                                                   content[host][visita]["Timestamp"]
+                if not paginasBots.keys().__contains__(content[host][visita]["pagina"]):
+                    paginasBots[content[host][visita]["pagina"]] = 0
+                paginasBots[content[host][visita]["pagina"]] += 1
+                res["crawler"]["host"][host]["visitas"].append(content[host][visita])
+                res["crawler"]["host"][host]["numeroVisitas"] += 1
 
-    return res
+    return res, paginasBots
 
 
 def desliarHosts(actualizadoSesiones, visitasUsuarioDiarias):
@@ -295,14 +320,14 @@ def analizar(path,proc, procOriginal, bots):
     sesionesTotales = numeroSesiones(procesados['contenido'])
     extensiones = extraccionExtensiones(procesados["contenido"])
     host, visitasDiarias = desliarHosts(actualizadoSesiones, visitasUsuarioDiarias)
-    datosBots = obtenerBots(bots, tiempoCorte)
+    datosBots, paginasBots = obtenerBots(bots, tiempoCorte)
     paginasSeguidas, paginasSeguidasOrdenado, ordenadoSinFin, ordenadoFin = obtenerSeguidas(sesiones)
 
     megaDic = {'procesado': procOriginal, 'visitasPagina': visitasPagina, 'totalPaginas': totalPaginas, 'usuariosPaginas': usuariosPaginas,
             'actualizadoSesiones': actualizadoSesiones, 'visitasDiariasPaginas': visitasDiariasPaginas, 'visitasUsuarioDiarias': visitasUsuarioDiarias,
             'numSesiones': sesionesTotales, 'sesionesOrdenadas': sesiones, 'repeticionExtensiones': extensiones, 'visitasHostDiarias': visitasDiarias,
             'host': host, 'datosBots': datosBots, 'paginasSeguidas': paginasSeguidas, 'paginasSeguidasOrdenado': paginasSeguidasOrdenado, 'ordenadoSinFin': ordenadoSinFin,
-            'ordenadoFin': ordenadoFin}
+            'ordenadoFin': ordenadoFin, "paginasBots": paginasBots}
 
     path = path.split("/")[len(path.split("/")) - 1]
     fichero_indice = open("Logs procesados/" + path, "wb")

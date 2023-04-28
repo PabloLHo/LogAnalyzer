@@ -71,7 +71,8 @@ function graficaCircular(id, nombre, visitas, paginas){
         responsive: true,
         legend: {
             display: false
-        }
+        },
+
       },
     };
 
@@ -150,49 +151,49 @@ function graficaMixta(id, nombre,nombre2, visitas, paginas, tiempo, ticksX){
     var r = Math.random() * 255;
 	var g = Math.random() * 255;
 	var b = Math.random() * 255;
-	var r2 = Math.random() * 255;
-	var g2 = Math.random() * 255;
-	var b2 = Math.random() * 255;
+	var r2,g2,b2;
+	do{
+        r2 = Math.random() * 255;
+        g2 = Math.random() * 255;
+        b2 = Math.random() * 255;
+	}while(r == r2 || g == g2 || b == b2);
 	const data = {
 		labels: paginas,
-		datasets: [{
-			label: nombre,
-			backgroundColor: 'rgb(' + r + ',' + g + ',' + b +')',
-			borderColor: 'rgb(' + r + ',' + g + ',' + b +')',
-			data: visitas,
-			order: 0,
-		},
-		{
+		datasets: [		{
 		    label: nombre2,
 		    data: tiempo,
 			borderColor: 'rgb(' + r2 + ',' + g2 + ',' + b2 +')',
 			type: 'line',
-			zIndex: 2,
-			order: 1,
+		},
+		{
+			label: nombre,
+			backgroundColor: 'rgb(' + r + ',' + g + ',' + b +')',
+			borderColor: 'rgb(' + r + ',' + g + ',' + b +')',
+			data: visitas,
 		}]
 	};
 
 	const config = {
 	  type: 'bar',
 	  data: data,
-	    options: {
-    scales: {
-      xAxes: [{
-        ticks: {
-          display: ticksX,
+	  options: {
+        scales: {
+          xAxes: [{
+            ticks: {
+              display: ticksX,
+            }
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Visitas (Barra) y Minutos de uso (Linea)'
+            },
+            ticks: {
+                    min: 0 // establece el valor mínimo en el eje Y a 10
+            }
+          }]
         }
-      }],
-      yAxes: [{
-        scaleLabel: {
-          display: true,
-          labelString: 'Visitas (Barra) y Minutos de uso (Linea)'
-        },
-        ticks: {
-                min: 0 // establece el valor mínimo en el eje Y a 10
-        }
-      }]
-    }
-  }
+      }
 	};
 
 	const myChart = new Chart( document.getElementById(id),config);
@@ -210,22 +211,19 @@ function graficaBarrasTemporal(id, nombre, nombre2, visitas, fechas, tiempo, hor
 
     const data = {
 		labels: fechas,
-		datasets: [{
-			label: nombre,
-			backgroundColor: 'rgb(' + r + ',' + g + ',' + b +')',
-			borderColor: 'rgb(' + r + ',' + g + ',' + b +')',
-			data: visitas,
-			order: 1,
-		},
-		{
+		datasets: [	{
 		    label: nombre2,
 		    data: tiempo,
 			borderColor: 'rgb(' + r2 + ',' + g2 + ',' + b2 +')',
 			type: 'line',
-			order: 0,
+		},
+		{
+			label: nombre,
+			backgroundColor: 'rgb(' + r + ',' + g + ',' + b +')',
+			borderColor: 'rgb(' + r + ',' + g + ',' + b +')',
+			data: visitas,
 		}]
 	};
-
 	const config = {
 	    type: 'bar',
 	    data: data,

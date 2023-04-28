@@ -21,10 +21,10 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item">
                         <a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
-                        <a class="nav-link active" href="/registros"><i class="far fa-file-code"></i><span>Registros</span></a>
+                        <a class="nav-link" href="/registros"><i class="far fa-file-code"></i><span>Registros</span></a>
                         <a class="nav-link" href="/sesiones"><i class="fas fa-user"></i><span>Sesiones</span></a>
                         <a class="nav-link" href="/reglas"><i class="fas fa-long-arrow-alt-right"></i><span>Reglas</span></a>
-                        <a class="nav-link" href="/invasores"><i class="fas fa-bug"></i><span>Invasores</span></a>
+                        <a class="nav-link active" href="/invasores"><i class="fas fa-bug"></i><span>Invasores</span></a>
                     </li>
                 </ul>
             </div>
@@ -33,55 +33,64 @@
             <div id="content">
                 <div class="container">
                     <br>
-                    <h3 class="text-dark mb-4">Registros</h3>
+                    <h3 class="text-dark mb-4">Búsquedas de invasores</h3>
                     <div>
                         <h3 class="text-dark mb-4"></h3>
                     </div>
                     <div class="container-fluid">
-                        <div class="card shadow">
-                            <div class="card-header py-3">
-                                <p class="text-primary m-0 fw-bold">Información de registros</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                    <table class="table my-0" id="data">
-                                        <thead>
-                                            <tr>
-                                                {% for i in columnas %}
-                                                    <th>{{i}}</th>
-                                                {% endfor %}
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tabla">
-                                            {% for linea in registros %}
-                                                    <tr>
-                                                    {% for campo, valor in linea.items() %}
-                                                        {% if campo == 'host' %}
-                                                            <td><a id="host" href="/host?usuario={{valor}}"> {{valor}}</a></td>
-                                                        {% else %}
-                                                            <td>{{valor}}</td>
-                                                        {% endif %}
+                        {% for tipo in bots %}
+
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 fw-bold">{{tipo}}</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                        <table class="table my-0" id="data">
+                                            <thead>
+                                                <tr>
+                                                    {% for i in columnas %}
+                                                        <th>{{i}}</th>
                                                     {% endfor %}
-                                                    </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 align-self-center">
-                                        <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando registros del 1 al 10 de {{tam}}</p>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tabla">
+                                                {% for host in bots[tipo]["host"] %}
+                                                        <tr>
+                                                            <td><a id="host" href="/invasor?usuario={{host}}"> {{host}}</a></td>
+                                                        {% for campo, valor in bots[tipo]["host"][host].items() %}
+                                                            {% if campo in columnas %}
+                                                                <td>{{valor}}</td>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="col-md-6">
-                                        <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                            <ul class="pagination">
-                                                <li class="page-item disabled" id="disabled"><button class="page-link" aria-label="Previous" id="anterior" onclick ="consulta_ajax(this)"><span aria-hidden="true">Anterior</span></li>
-                                                <li class="page-item"><button class="page-link" aria-label="Next" id="siguiente" onclick ="consulta_ajax(this)"><span aria-hidden="true">Siguiente</span></li>
-                                            </ul>
-                                        </nav>
+                                    <div class="row">
+                                        <div class="col-md-6 align-self-center">
+                                            {% if tam[tipo] < 10 %}
+                                                <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando registros del 1 al {{tam[tipo]}}</p>
+                                            {% else %}
+                                                <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando registros del 1 al 10 de {{tam[tipo]}}</p>
+                                            {% endif %}
+                                        </div>
+                                        {% if tam[tipo] > 10 %}
+                                            <div class="col-md-6">
+                                                <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                                    <ul class="pagination">
+                                                        <li class="page-item disabled" id="disabled"><button class="page-link" aria-label="Previous" id="anterior" onclick ="consulta_ajax(this)"><span aria-hidden="true">Anterior</span></li>
+                                                        <li class="page-item"><button class="page-link" aria-label="Next" id="siguiente" onclick ="consulta_ajax(this)"><span aria-hidden="true">Siguiente</span></li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <br>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

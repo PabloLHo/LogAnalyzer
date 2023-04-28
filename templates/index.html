@@ -48,7 +48,7 @@
                         <a class="nav-link" href="/registros"><i class="far fa-file-code"></i><span>Registros</span></a>
                         <a class="nav-link" href="/sesiones"><i class="fas fa-user"></i><span>Sesiones</span></a>
                         <a class="nav-link" href="/reglas"><i class="fas fa-long-arrow-alt-right"></i><span>Reglas</span></a>
-                        <a class="nav-link" href="/reglas"><i class="fas fa-long-arrow-alt-right"></i><span>Invasores</span></a>
+                        <a class="nav-link" href="/invasores"><i class="fas fa-bug"></i><span>Invasores</span></a>
                     </li>
                 </ul>
             </div>
@@ -344,7 +344,7 @@
                 {% for dia in visitasDiarias %}
                     fechas.push('{{dia}}');
                     visitasDiarias.push({{visitasDiarias[dia]["Visitas"]}});
-                    tiempoDia.push({{visitasDiarias[dia]["Tiempo"]}} / 3600);
+                    tiempoDia.push({{visitasDiarias[dia]["Tiempo"]}} / 60);
                 {%endfor%}
 
                 {% for pagina in totalPaginas %}
@@ -366,7 +366,7 @@
                 graficaDispersion("visitasTiempoDispersion", "Relación Tiempo - Visitas", visitas, tiempo, paginas);
                 graficaMixta("visitasTotalesPagina", "Visitas por página", "Tiempo por pagina", visitas,paginas, tiempo, false);
                 graficaCircular("visitasTotalesCircular", "Visitas por página", visitas, paginas);
-                graficaBarrasTemporal("temporalVisitas", "Visitas", "Tiempo", visitasDiarias, fechas, tiempoDia, "h");
+                graficaBarrasTemporal("temporalVisitas", "Visitas", "Tiempo", visitasDiarias, fechas, tiempoDia, "min");
 
                 graficaMixta("visitasBots", "Visitas por invasor", "Tiempo por pagina", visitasBots,bots, tiempoBots, true);
             }
