@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="static/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="static/css/modal.css">
 </head>
 
 <body id="page-top">
@@ -35,233 +36,246 @@
                 <div class="container-fluid">
                     <br>
                     <h3 class="text-dark mb-4">Estadísticas y recomendaciones</h3>
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Páginas visitadas con mayor frecuencia</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Página</th>
-                                            <th>Veces visitada</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for item in totalVisitas %}
-                                            <tr>
-                                                <td>{{item[0]}}</td>
-                                                <td>{{item[1]['visitas']}}
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                    {% if totalVisitas %}
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Páginas visitadas con mayor frecuencia</p>
                             </div>
-                        </div>
-                        <div class="card-footer">
-                            <p><b>Recomendación:</b> Haz que estas páginas sean fácilmente accesibles para los usuarios.</p>
-                        </div>
-                    </div>
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Páginas visitadas con menor frecuencia</p>
-                        </div>
-                        <div class="card-body">
                             <div class="card-body">
-                            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Página</th>
-                                            <th>Veces visitada</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for item in totalVisitasReves %}
+                                <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0">
+                                        <thead>
                                             <tr>
-                                                <td>{{item[0]}}</td>
-                                                <td>{{item[1]['visitas']}}
+                                                <th>Página</th>
+                                                <th>Veces visitada</th>
                                             </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in totalVisitas %}
+                                                <tr>
+                                                    <td><a href="/pagina?pagina={{item[0]}}">{{item[0]}}</a></td>
+                                                    <td>{{item[1]['visitas']}}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p><b>Recomendación:</b> Haz que estas páginas sean fácilmente accesibles para los usuarios.</p>
                             </div>
                         </div>
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Páginas visitadas con menor frecuencia</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-body">
+                                <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Página</th>
+                                                <th>Veces visitada</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in totalVisitasReves %}
+                                                <tr>
+                                                    <td><a href="/pagina?pagina={{item[0]}}">{{item[0]}}</a></td>
+                                                    <td>{{item[1]['visitas']}}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="card-footer">
+                                <p><b>Recomendación:</b> Considera eliminar estas páginas, incluyendo su contenido en otras más frecuentes.</p>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <p><b>Recomendación:</b> Considera eliminar estas páginas, incluyendo su contenido en otras más frecuentes.</p>
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Páginas visitadas una a continuación de otra con frecuencia</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Secuencia</th>
+                                                <th>Frecuencia</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in ordenadoSinFin %}
+                                                <tr>
+                                                    <td><a href="/pagina?pagina={{item[0][0]}}">{{item[0][0]}}</a> &rarr; <a href="/pagina?pagina={{item[0][1]}}">{{item[0][1]}}</a></td>
+                                                    <td>{{item[1]}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p><b>Recomendación:</b> Considera combinar ambas páginas por contenido, si fuera posible.</p>
+                            </div>
+                        </div>
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Páginas que suelen ser la última de la sesión</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Secuencia</th>
+                                                <th>Frecuencia</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in ordenadoFin %}
+                                                <tr>
+                                                    <td><a href="/pagina?pagina={{item[0][0]}}">{{item[0][0]}}</a> &rarr; {{item[0][1]}}</td>
+                                                    <td>{{item[1]}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p><b>Recomendación:</b> Esta página suele ser la que el usuario buscaba. Considera hacerla lo más accesible posible.</p>
+                            </div>
+                        </div>
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Páginas que suelen ser la primera de la sesión</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Secuencia</th>
+                                                <th>Frecuencia</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in ordenadoInicio %}
+                                                <tr>
+                                                    <td>{{item[0][0]}} &rarr; <a href="/pagina?pagina={{item[0][1]}}">{{item[0][1]}}</a></td>
+                                                    <td>{{item[1]}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p><b>Recomendación:</b> Esta página suele ser por la que entra el usuario. Considera incluir el contenido más importante del sitio.</p>
+                            </div>
+                        </div>
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Páginas en las que más tiempo pasan los usuarios</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Página</th>
+                                                <th>Tiempo (seg)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in totalVisitasPorTiempos %}
+                                                <tr>
+                                                    <td><a href="/pagina?pagina={{item[0]}}">{{item[0]}}</a></td>
+                                                    <td>{{item[1]['visitas']}}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p><b>Recomendación:</b> Puede que estas páginas tengan demasiado contenido o este sea lioso. Considera resumir un poco el contenido.</p>
+                            </div>
+                        </div>
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Páginas en las que menos tiempo pasan los usuarios</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Página</th>
+                                                <th>Tiempo (seg)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in totalVisitasPorTiemposReves %}
+                                                <tr>
+                                                    <td><a href="/pagina?pagina={{item[0]}}">{{item[0]}}</a></td>
+                                                    <td>{{item[1]['visitas']}}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p><b>Recomendación:</b> Los contenidos de estas páginas no parecen muy interesantes. Considera eliminarlos, o incluirlos en otra página.</p>
+                            </div>
+                        </div>
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Páginas visitadas por bots</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Página</th>
+                                                <th>Número visitas</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in paginasBots %}
+                                                <tr>
+                                                    <td><a href="/pagina?pagina={{item}}">{{item}}</a></td>
+                                                    <td>{{paginasBots[item]}}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p><b>Recomendación:</b> Restringe el acceso a los hosts que son bots.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="card shadow mb-3">
+                {% else %}
+                    <div class="card shadow">
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Páginas visitadas una a continuación de otra con frecuencia</p>
+                            <h4 class="text-center">¡Vaya! No hay ningún log que analizar... ¡Sube uno!</h4>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Secuencia</th>
-                                            <th>Frecuencia</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for item in ordenadoSinFin %}
-                                            <tr>
-                                                <td>{{item[0][0]}} &rarr; {{item[0][1]}}</td>
-                                                <td>{{item[1]}}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-12 text-nowrap text-center"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal_log">Subir Log</button></div>
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <p><b>Recomendación:</b> Considera combinar ambas páginas por contenido, si fuera posible.</p>
-                        </div>
                     </div>
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Páginas que suelen ser la última de la sesión</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Secuencia</th>
-                                            <th>Frecuencia</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for item in ordenadoFin %}
-                                            <tr>
-                                                <td>{{item[0][0]}} &rarr; {{item[0][1]}}</td>
-                                                <td>{{item[1]}}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <p><b>Recomendación:</b> Esta página suele ser la que el usuario buscaba. Considera hacerla lo más accesible posible.</p>
-                        </div>
-                    </div>
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Páginas que suelen ser la primera de la sesión</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Secuencia</th>
-                                            <th>Frecuencia</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for item in ordenadoInicio %}
-                                            <tr>
-                                                <td>{{item[0][0]}} &rarr; {{item[0][1]}}</td>
-                                                <td>{{item[1]}}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <p><b>Recomendación:</b> Esta página suele ser por la que entra el usuario. Considera incluir el contenido más importante del sitio.</p>
-                        </div>
-                    </div>
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Páginas en las que más tiempo pasan los usuarios</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Página</th>
-                                            <th>Tiempo (seg)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for item in totalVisitasPorTiempos %}
-                                            <tr>
-                                                <td>{{item[0]}}</td>
-                                                <td>{{item[1]['visitas']}}
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <p><b>Recomendación:</b> Puede que estas páginas tengan demasiado contenido o este sea lioso. Considera resumir un poco el contenido.</p>
-                        </div>
-                    </div>
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Páginas en las que menos tiempo pasan los usuarios</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Página</th>
-                                            <th>Tiempo (seg)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for item in totalVisitasPorTiemposReves %}
-                                            <tr>
-                                                <td>{{item[0]}}</td>
-                                                <td>{{item[1]['visitas']}}
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <p><b>Recomendación:</b> Los contenidos de estas páginas no parecen muy interesantes. Considera eliminarlos, o incluirlos en otra página.</p>
-                        </div>
-                    </div>
-                    <div class="card shadow mb-3">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Páginas visitadas por bots</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Página</th>
-                                            <th>Número visitas</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for item in paginasBots %}
-                                            <tr>
-                                                <td>{{item}}</td>
-                                                <td>{{paginasBots[item]}}
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <p><b>Recomendación:</b> Restringe el acceso a los hosts que son bots.</p>
-                        </div>
-                    </div>
-                </div>
+                {% endif %}
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
@@ -269,6 +283,51 @@
                 </div>
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal_log">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="/subir_log" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sube un fichero Log</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <br>
+                        <input class="form-control" type="file" name="log">
+                        <br>
+                        <div class="row">
+                            <div class="col" style="text-align: center">
+                                <select name="formato">
+                                  <option value="EPA">EPA</option>
+                                  <option value="CLF" selected>CLF</option>
+                                  <option value="ECLF">ECLF</option>
+                                    <option value="MIIS">MIIS</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" type="input" name="tiempo" placeholder="1800" value="1800">
+                                <p> Segundos necesarios para sesión</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-header">
+                        <h4 class="modal-title">O bien, elige un fichero log existente</h4>
+                    </div>
+                    <div class="modal-body">
+                            <input type="radio" name="existente" hidden checked value="-1">
+                            {% for i in range(logsExistentes|length) %}
+                                <label class="radio">
+                                  <input type="radio" name="existente" value="{{i}}">
+                                  <span>{{logsExistentes[i]}}</span>
+                                </label>
+                            {%endfor%}
+                        <br>
+                    </div>
+
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-light" type="submit" data-bs-dismiss="modal" style="background: #3e5cb2;color: rgb(255,255,255);">Subir</button></div>
+                </form>
+            </div>
+        </div>
     </div>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/bs-init.js"></script>

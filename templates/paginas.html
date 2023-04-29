@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="static/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="static/css/modal.css">
 </head>
 
 <body id="page-top">
@@ -35,46 +36,59 @@
                 <div class="container-fluid">
                     <br>
                     <h3 class="text-dark mb-4">Páginas</h3>
-                    <div class="card shadow">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Información sobre las páginas del sitio web</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="data">
-                                    <thead>
-                                        <tr>
-                                            <th>Dirección</th>
-                                            <th>Número de visitas</th>
-                                            <th>Tiempo total (seg)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tabla">
-                                        {% for item in totalPaginas %}
+                    {% if totalPaginas %}
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Información sobre las páginas del sitio web</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0" id="data">
+                                        <thead>
                                             <tr>
-                                                <td><a href="/pagina?id={{item[0]}}"> {{item[0]}}</a></td>
-                                                <td>{{item[1]['visitas']}}</td>
-                                                <td>{{item[1]['tiempo']}}</td>
+                                                <th>Dirección</th>
+                                                <th>Número de visitas</th>
+                                                <th>Tiempo total (seg)</th>
                                             </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 align-self-center">
-                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando registros del 1 al 10 de {{tam}}</p>
+                                        </thead>
+                                        <tbody id="tabla">
+                                            {% for item in totalPaginas %}
+                                                <tr>
+                                                    <td><a href="/pagina?id={{item[0]}}"> {{item[0]}}</a></td>
+                                                    <td>{{item[1]['visitas']}}</td>
+                                                    <td>{{item[1]['tiempo']}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="col-md-6">
-                                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                        <ul class="pagination">
-                                            <li class="page-item disabled" id="disabled"><button class="page-link" aria-label="Previous" id="anterior" onclick ="consulta_ajax(this)"><span aria-hidden="true">Anterior</span></li>
-                                            <li class="page-item"><button class="page-link" aria-label="Next" id="siguiente" onclick ="consulta_ajax(this)"><span aria-hidden="true">Siguiente</span></li>
-                                        </ul>
-                                    </nav>
+                                <div class="row">
+                                    <div class="col-md-6 align-self-center">
+                                        <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando registros del 1 al 10 de {{tam}}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                            <ul class="pagination">
+                                                <li class="page-item disabled" id="disabled"><button class="page-link" aria-label="Previous" id="anterior" onclick ="consulta_ajax(this)"><span aria-hidden="true">Anterior</span></li>
+                                                <li class="page-item"><button class="page-link" aria-label="Next" id="siguiente" onclick ="consulta_ajax(this)"><span aria-hidden="true">Siguiente</span></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {% else %}
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <h4 class="text-center">¡Vaya! No hay ningún log que analizar... ¡Sube uno!</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-12 text-nowrap text-center"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal_log">Subir Log</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             <input type="hidden" id="paginaActual" name="paginaActual" value="1" />
@@ -85,6 +99,51 @@
                 </div>
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal_log">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="/subir_log" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sube un fichero Log</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <br>
+                        <input class="form-control" type="file" name="log">
+                        <br>
+                        <div class="row">
+                            <div class="col" style="text-align: center">
+                                <select name="formato">
+                                  <option value="EPA">EPA</option>
+                                  <option value="CLF" selected>CLF</option>
+                                  <option value="ECLF">ECLF</option>
+                                    <option value="MIIS">MIIS</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" type="input" name="tiempo" placeholder="1800" value="1800">
+                                <p> Segundos necesarios para sesión</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-header">
+                        <h4 class="modal-title">O bien, elige un fichero log existente</h4>
+                    </div>
+                    <div class="modal-body">
+                            <input type="radio" name="existente" hidden checked value="-1">
+                            {% for i in range(logsExistentes|length) %}
+                                <label class="radio">
+                                  <input type="radio" name="existente" value="{{i}}">
+                                  <span>{{logsExistentes[i]}}</span>
+                                </label>
+                            {%endfor%}
+                        <br>
+                    </div>
+
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-light" type="submit" data-bs-dismiss="modal" style="background: #3e5cb2;color: rgb(255,255,255);">Subir</button></div>
+                </form>
+            </div>
+        </div>
     </div>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/bs-init.js"></script>

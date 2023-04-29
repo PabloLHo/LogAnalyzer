@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="static/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="static/css/modal.css">
 </head>
 
 <body id="page-top">
@@ -35,7 +36,8 @@
                 <div class="container-fluid">
                     <br>
                     <h3 class="text-dark mb-4">Host {{direccion}}</h3>
-                    <div class="row mb-3">
+                    {% if visitasDiarias %}
+                        <div class="row mb-3">
                             <div class="row">
                                 <div class="col">
                                     <div class="card shadow mb-3">
@@ -68,9 +70,8 @@
 
                                 </div>
                             </div>
-
-                    </div>
-                    <div class="row">
+                        </div>
+                        <div class="row">
                             <div class="col-lg-7 col-xl-5">
                                 <div class="card shadow mb-4">
                                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -103,8 +104,8 @@
                                     </div>
                                 </div>
                             </div>
-                </div>
-                    <div class="row">
+                        </div>
+                        <div class="row">
                             <div class="col-lg-7 col-xl-5">
                                 <div class="card shadow mb-4">
                                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -137,47 +138,104 @@
                                     </div>
                                 </div>
                             </div>
-                </div>
-                    <div class="card shadow mb-3">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Sesiones del host</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                                <table class="table my-0" id="data">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID de sesión</th>
-                                                            <th>Host</th>
-                                                            <th>Usuario</th>
-                                                            <th>Tiempo de la sesión (seg)</th>
-                                                            <th>Número de visitas</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="tabla">
-                                                        {% for usuario, sesiones in host['sesiones'].items() %}
-                                                            {% for id, sesion in sesiones.items() %}
-                                                                <tr>
-                                                                    <td><a id="sesion" href="/sesion?id={{id}}"> {{id}}</a></td>
-                                                                    <td>{{direccion}}</td>
-                                                                    <td>{{sesion['usuario']}}</td>
-                                                                    <td>{{sesion['tiempoSesion']}}</td>
-                                                                    <td>{{sesion['visitas'] | length}}</td>
-                                                                </tr>
-                                                            {% endfor %}
-                                                        {% endfor %}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Sesiones del host</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0" id="data">
+                                        <thead>
+                                            <tr>
+                                                <th>ID de sesión</th>
+                                                <th>Host</th>
+                                                <th>Usuario</th>
+                                                <th>Tiempo de la sesión (seg)</th>
+                                                <th>Número de visitas</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla">
+                                            {% for usuario, sesiones in host['sesiones'].items() %}
+                                                {% for id, sesion in sesiones.items() %}
+                                                    <tr>
+                                                        <td><a id="sesion" href="/sesion?id={{id}}"> {{id}}</a></td>
+                                                        <td>{{direccion}}</td>
+                                                        <td>{{sesion['usuario']}}</td>
+                                                        <td>{{sesion['tiempoSesion']}}</td>
+                                                        <td>{{sesion['visitas'] | length}}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <h4 class="text-center">¡Vaya! No hay ningún log que analizar... ¡Sube uno!</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-12 text-nowrap text-center"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal_log">Subir Log</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    </div>
+                    <footer class="bg-white sticky-footer">
+                        <div class="container my-auto">
+                            <div class="text-center my-auto copyright"><span>Copyright © Web Analyzer 2023</span></div>
+                        </div>
+                    </footer>
+                    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal_log">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="/subir_log" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sube un fichero Log</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <br>
+                        <input class="form-control" type="file" name="log">
+                        <br>
+                        <div class="row">
+                            <div class="col" style="text-align: center">
+                                <select name="formato">
+                                  <option value="EPA">EPA</option>
+                                  <option value="CLF" selected>CLF</option>
+                                  <option value="ECLF">ECLF</option>
+                                    <option value="MIIS">MIIS</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" type="input" name="tiempo" placeholder="1800" value="1800">
+                                <p> Segundos necesarios para sesión</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-header">
+                        <h4 class="modal-title">O bien, elige un fichero log existente</h4>
+                    </div>
+                    <div class="modal-body">
+                            <input type="radio" name="existente" hidden checked value="-1">
+                            {% for i in range(logsExistentes|length) %}
+                                <label class="radio">
+                                  <input type="radio" name="existente" value="{{i}}">
+                                  <span>{{logsExistentes[i]}}</span>
+                                </label>
+                            {%endfor%}
+                        <br>
+                    </div>
+
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-light" type="submit" data-bs-dismiss="modal" style="background: #3e5cb2;color: rgb(255,255,255);">Subir</button></div>
+                </form>
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © Web Analyzer 2023</span></div>
-                </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
     </div>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/graficas.js"></script>
@@ -186,47 +244,51 @@
     <script src="static/js/theme.js"></script>
     <script>
             window.onload = function() {
-                sesion = [];
-                visitas = [];
-                tiempo = [];
 
-                paginas = [];
-                visitasPagina = [];
-                tiempoPagina = [];
+                {% if  paginasHost %}
 
-                paginas = [];
-                visitasPagina = [];
-                tiempoPagina = [];
+                    sesion = [];
+                    visitas = [];
+                    tiempo = [];
 
-                tiempoDia = [];
-                visitasDiarias = [];
-                fechas = [];
+                    paginas = [];
+                    visitasPagina = [];
+                    tiempoPagina = [];
 
-                {% for usuario in host['sesiones'] %}
-                    {% for sesion in host['sesiones'][usuario] %}
-                        sesion.push("{{sesion}}");
-                        tiempo.push({{host['sesiones'][usuario][sesion]['tiempoSesion'] / 60}});
-                        visitas.push({{host['sesiones'][usuario][sesion]['visitas']|length}});
+                    paginas = [];
+                    visitasPagina = [];
+                    tiempoPagina = [];
+
+                    tiempoDia = [];
+                    visitasDiarias = [];
+                    fechas = [];
+
+                    {% for usuario in host['sesiones'] %}
+                        {% for sesion in host['sesiones'][usuario] %}
+                            sesion.push("{{sesion}}");
+                            tiempo.push({{host['sesiones'][usuario][sesion]['tiempoSesion'] / 60}});
+                            visitas.push({{host['sesiones'][usuario][sesion]['visitas']|length}});
+                        {%endfor%}
                     {%endfor%}
-                {%endfor%}
 
-                {% for pagina in paginasHost %}
-                    paginas.push("{{pagina}}");
-                    tiempoPagina.push({{paginasHost[pagina]["tiempo"] / 60}});
-                    visitasPagina.push({{paginasHost[pagina]["visitas"]}});
-                {%endfor%}
-
-                {% for usuario in visitasDiarias %}
-                    {% for dia in visitasDiarias[usuario] %}
-                        fechas.push('{{dia}}');
-                        visitasDiarias.push({{visitasDiarias[usuario][dia]["numeroVisitas"]}});
-                        tiempoDia.push({{visitasDiarias[usuario][dia]["tiempo"] / 60}});
+                    {% for pagina in paginasHost %}
+                        paginas.push("{{pagina}}");
+                        tiempoPagina.push({{paginasHost[pagina]["tiempo"] / 60}});
+                        visitasPagina.push({{paginasHost[pagina]["visitas"]}});
                     {%endfor%}
-                {%endfor%}
-                graficaMixta("visitasPorSesion", "Visitas por página", "Tiempo por pagina", visitas, sesion, tiempo, true);
-                graficaMixta("visitasPorPagina", "Visitas por página", "Tiempo por pagina", visitasPagina, paginas, tiempoPagina, false);
-                graficaBarrasTemporal("usoDiario", "Visitas", "Tiempo", visitasDiarias, fechas, tiempoDia, "min");
-                graficaCircular("visitasTotalesCircular", "Visitas por página", visitasPagina, paginas);
+
+                    {% for usuario in visitasDiarias %}
+                        {% for dia in visitasDiarias[usuario] %}
+                            fechas.push('{{dia}}');
+                            visitasDiarias.push({{visitasDiarias[usuario][dia]["numeroVisitas"]}});
+                            tiempoDia.push({{visitasDiarias[usuario][dia]["tiempo"] / 60}});
+                        {%endfor%}
+                    {%endfor%}
+                    graficaMixta("visitasPorSesion", "Visitas por página", "Tiempo por pagina", visitas, sesion, tiempo, true);
+                    graficaMixta("visitasPorPagina", "Visitas por página", "Tiempo por pagina", visitasPagina, paginas, tiempoPagina, false);
+                    graficaBarrasTemporal("usoDiario", "Visitas", "Tiempo", visitasDiarias, fechas, tiempoDia, "min");
+                    graficaCircular("visitasTotalesCircular", "Visitas por página", visitasPagina, paginas);
+                {% endif %}
             }
     </script>
 </body>
