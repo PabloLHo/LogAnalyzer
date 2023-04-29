@@ -154,36 +154,34 @@
     <script src="static/js/theme.js"></script>
     <script src="static/js/jquery-3.6.4.min.js"></script>
     <script type="text/javascript">
-        {% if sesion %}
             function consulta_ajax(element){
-                let paginaActual = document.getElementById("paginaActual").value;
-                if (element.id == "anterior") {
-                    paginaActual--;
-                } else {
-                    paginaActual++;
-                }
-                document.getElementById("paginaActual").value = paginaActual;
-                let tabla = document.getElementById("tabla");
-                $.ajax({
-                    url:"/ajaxSesiones",
-                    type:"POST",
-                    data: {"value":paginaActual},
-                    success: function(response){
-                        tabla.innerHTML = response;
-                        let registrosPorPagina = document.getElementById("registrosPorPagina").value;
-                        document.getElementById("dataTable_info").innerHTML = "Mostrando registros del " + ((paginaActual-1)*registrosPorPagina).toString() + " al " + (paginaActual*registrosPorPagina).toString() + " de {{tam}}"
-                        if (paginaActual > 1) {
-                            document.getElementById("disabled").className = "page-item";
-                        } else {
-                            document.getElementById("disabled").className = "page-item disabled";
-                        }
-                    },
-                    error: function(error){
-                        //console.log(error);
+                    let paginaActual = document.getElementById("paginaActual").value;
+                    if (element.id == "anterior") {
+                        paginaActual--;
+                    } else {
+                        paginaActual++;
                     }
-                });
+                    document.getElementById("paginaActual").value = paginaActual;
+                    let tabla = document.getElementById("tabla");
+                    $.ajax({
+                        url:"/ajaxSesiones",
+                        type:"POST",
+                        data: {"value":paginaActual},
+                        success: function(response){
+                            tabla.innerHTML = response;
+                            let registrosPorPagina = document.getElementById("registrosPorPagina").value;
+                            document.getElementById("dataTable_info").innerHTML = "Mostrando registros del " + ((paginaActual-1)*registrosPorPagina).toString() + " al " + (paginaActual*registrosPorPagina).toString() + " de {{tam}}"
+                            if (paginaActual > 1) {
+                                document.getElementById("disabled").className = "page-item";
+                            } else {
+                                document.getElementById("disabled").className = "page-item disabled";
+                            }
+                        },
+                        error: function(error){
+                            //console.log(error);
+                        }
+                    });
             }
-        {% endif %}
     </script>
 </body>
 

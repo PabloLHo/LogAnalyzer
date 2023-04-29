@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2281cb86-82d0-4459-9283-02907098e4da" name="Changes" comment="Paginas de sesiones y registros hechas">
-      <change afterPath="$PROJECT_DIR$/static/css/modal.css" afterDir="false" />
+    <list default="true" id="2281cb86-82d0-4459-9283-02907098e4da" name="Changes" comment="Trabajo terminado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/host.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/host.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/invasor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/invasor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/invasores.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/invasores.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pagina.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pagina.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paginas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paginas.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registros.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registros.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reglas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reglas.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sesion.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/sesiones.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sesiones.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,6 +60,7 @@
       <workItem from="1682668241009" duration="2277000" />
       <workItem from="1682695873313" duration="3809000" />
       <workItem from="1682720370566" duration="2127000" />
+      <workItem from="1682787591420" duration="106000" />
     </task>
     <task id="LOCAL-00001" summary="Paginas de sesiones y registros hechas">
       <created>1682613329136</created>
@@ -86,7 +76,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682673310435</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Trabajo terminado">
+      <created>1682769611688</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1682769611688</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -107,6 +104,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Paginas de sesiones y registros hechas" />
     <MESSAGE value="Página de cada host actualizada" />
-    <option name="LAST_COMMIT_MESSAGE" value="Página de cada host actualizada" />
+    <MESSAGE value="Trabajo terminado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trabajo terminado" />
   </component>
 </project>

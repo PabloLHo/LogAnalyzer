@@ -1,0 +1,71 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"2281cb86-82d0-4459-9283-02907098e4da\" name=\"Changes\" comment=\"Paginas de sesiones y registros hechas\">\n      <change afterPath=\"$PROJECT_DIR$/templates/pagina.html\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/templates/paginas.html\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/templates/tablaPaginas.html\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Logs procesados/NASA_access_log_REDUC.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Logs procesados/NASA_access_log_REDUC.txt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/app.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/app.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/dependencias/analisis.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/dependencias/analisis.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/templates/host.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/templates/host.html\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/templates/index.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/templates/index.html\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/templates/invasor.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/templates/invasor.html\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/templates/invasores.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/templates/invasores.html\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/templates/registros.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/templates/registros.html\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/templates/reglas.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/templates/reglas.html\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/templates/sesion.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/templates/sesion.html\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/templates/sesiones.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/templates/sesiones.html\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2P18a7YBBXqbgXcwnozj4WohKTl\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"ASKED_ADD_EXTERNAL_FILES\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"WebServerToolWindowFactoryState\": \"false\",\n    \"git-widget-placeholder\": \"main\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"D:\\Desktop\\Repositorios\\MW\\templates\" />\n      <recent name=\"$PROJECT_DIR$/templates\" />\n    </key>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"2281cb86-82d0-4459-9283-02907098e4da\" name=\"Changes\" comment=\"\" />\n      <created>1682613288803</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1682613288803</updated>\n      <workItem from=\"1682613292729\" duration=\"60000\" />\n      <workItem from=\"1682615922866\" duration=\"4700000\" />\n      <workItem from=\"1682668241009\" duration=\"2277000\" />\n      <workItem from=\"1682695873313\" duration=\"3809000\" />\n      <workItem from=\"1682720370566\" duration=\"2127000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Paginas de sesiones y registros hechas\">\n      <created>1682613329136</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682613329136</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Página de cada host actualizada\">\n      <created>1682673310435</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682673310435</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"3\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\n    <MESSAGE value=\"Paginas de sesiones y registros hechas\" />\n    <MESSAGE value=\"Página de cada host actualizada\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Página de cada host actualizada\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 6be42067aa1955dd31199fcddecef0f397b0fc57)
++++ b/.idea/workspace.xml	(date 1682722566831)
+@@ -4,24 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="2281cb86-82d0-4459-9283-02907098e4da" name="Changes" comment="Paginas de sesiones y registros hechas">
+-      <change afterPath="$PROJECT_DIR$/templates/pagina.html" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/templates/paginas.html" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/templates/tablaPaginas.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Logs procesados/NASA_access_log_REDUC.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs procesados/NASA_access_log_REDUC.txt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/dependencias/analisis.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/analisis.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/host.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/host.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/invasor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/invasor.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/invasores.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/invasores.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/registros.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registros.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/reglas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reglas.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/sesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sesion.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/sesiones.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sesiones.html" afterDir="false" />
+-    </list>
++    <list default="true" id="2281cb86-82d0-4459-9283-02907098e4da" name="Changes" comment="Casi terminado" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -73,7 +56,7 @@
+       <workItem from="1682615922866" duration="4700000" />
+       <workItem from="1682668241009" duration="2277000" />
+       <workItem from="1682695873313" duration="3809000" />
+-      <workItem from="1682720370566" duration="2127000" />
++      <workItem from="1682720370566" duration="2196000" />
+     </task>
+     <task id="LOCAL-00001" summary="Paginas de sesiones y registros hechas">
+       <created>1682613329136</created>
+@@ -89,7 +72,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1682673310435</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="Casi terminado">
++      <created>1682722551903</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1682722551904</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -110,6 +100,7 @@
+     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+     <MESSAGE value="Paginas de sesiones y registros hechas" />
+     <MESSAGE value="Página de cada host actualizada" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Página de cada host actualizada" />
++    <MESSAGE value="Casi terminado" />
++    <option name="LAST_COMMIT_MESSAGE" value="Casi terminado" />
+   </component>
+ </project>
+\ No newline at end of file
