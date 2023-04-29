@@ -314,7 +314,7 @@
                         tiempo.push({{item[1]["tiempo"]}} / 60);
                     {% endfor %}
 
-                    graficaMixta("hostVisitas", "Visitas por host", "Tiempo por host", visitas,host, tiempo, false);
+                    graficaMixta("hostVisitas", "Visitas por host", "Tiempo por host", visitas,host, tiempo, true);
                     graficaCircular("paginasAnterior", "Veces visitada", visitasAnterior, paginasAnterior);
                     graficaCircular("paginasPosterior", "Veces visitada", visitasPosterior, paginasPosterior);
                 {% endif %}
