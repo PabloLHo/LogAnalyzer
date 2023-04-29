@@ -5,22 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2281cb86-82d0-4459-9283-02907098e4da" name="Changes" comment="Paginas de sesiones y registros hechas">
-      <change afterPath="$PROJECT_DIR$/templates/pagina.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/paginas.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/tablaPaginas.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logs procesados/NASA_access_log_REDUC.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs procesados/NASA_access_log_REDUC.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/NASA_access_log_REDUC.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dependencias/analisis.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/analisis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/host.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/host.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependencias/parseador.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/parseador.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependencias/procesado.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencias/procesado.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/invasor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/invasor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/invasores.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/invasores.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registros.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registros.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reglas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reglas.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sesion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sesiones.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sesiones.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/pagina.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pagina.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,20 +33,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Desktop\Repositorios\MW\templates" />

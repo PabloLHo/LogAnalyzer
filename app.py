@@ -14,6 +14,8 @@ app.config['UPLOAD_FOLDER'] = os.path.join('Logs')
 logsExistentes = os.listdir("Logs procesados")
 log = None
 registrosPorPagina = 10
+tiempoCorte = 1800
+formatoLog = "CLF"
 
 
 #Ruta base: página principal
@@ -205,7 +207,8 @@ def ajaxPaginas():
 @app.route('/pagina', methods=['GET', 'POST'])
 def pagina():
     global log
-    aux = ''.join(request.url.split("=")[1:])
+    aux = request.url.split("=")[1]
+    aux = aux.replace("%2F", "/")
     totalPaginas = log['totalPaginas'][aux] if log else None
     visitasPagina = log['paginasHosts'][aux][:registrosPorPagina] if log else None
     estructura = log['paginasSeguidasOrdenado'] if log else None
@@ -222,9 +225,11 @@ def pagina():
 
 @app.route('/subir_log', methods=['POST'])
 def subir_log():
-    global log, logsExistentes
+    global log, logsExistentes, tiempoCorte, formatoLog
     if request.method == 'POST':
         e = int(request.form['existente'])
+        tiempoCorte = int(request.form["tiempo"])
+        formatoLog = request.form["formato"]
         if e > -1:
             path = logsExistentes[e].split("/")[len(logsExistentes[e].split("/")) - 1]
             fichero_procesado = open("Logs procesados/" + path, "rb")
@@ -234,8 +239,8 @@ def subir_log():
             if fichero.filename != '':
                 fichero.save(os.path.join(app.config['UPLOAD_FOLDER'], fichero.filename))
                 path = app.config['UPLOAD_FOLDER'] + "/" + fichero.filename
-                proc, procOriginal, bots = procesado.procesar(path)
-                analisis.analizar(path, proc, procOriginal, bots)
+                proc, procOriginal, bots = procesado.procesar(path,tiempoCorte, formatoLog)
+                analisis.analizar(path, proc, procOriginal, bots, tiempoCorte)
 
                 path = fichero.filename.split("/")[len(fichero.filename.split("/")) - 1]
                 fichero_procesado = open("Logs procesados/" + path, "rb")

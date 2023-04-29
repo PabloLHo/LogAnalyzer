@@ -1,22 +1,20 @@
 from datetime import datetime
 import os
-import pickle
 import dependencias.parseador as parseador
 
 # Trabaja con los logs del directorio para realizar un preprocesamiento del mismo obteniendo los datos del mismo
-def procesar(path):
+def procesar(path, tiempoCorte, formatoLog):
     if not os.path.exists("Logs") or len(os.listdir("Logs")) == 0:
         print("Lanzar error")
 
     if not os.path.exists("Logs procesados"):
         os.mkdir("Logs procesados")
 
-    procOriginal = parseador.procesarLog(path)
+    procOriginal = parseador.procesarLog(path, formatoLog)
     proc = limitarExtensiones(procOriginal, ("html", "htm", "pdf", "asp", "exe", "txt", "doc", "ppt", "xls", "xml", ""))
     proc = definirTiempos(proc)
     proc, bots = eliminarBots(proc)
     proc = identificarUsuarios(proc)
-    tiempoCorte = 1800
     proc = definirSesiones(proc, tiempoCorte)
 
     return proc, procOriginal, bots

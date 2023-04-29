@@ -53,86 +53,148 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card shadow mb-3">
-                                    <div class="card-header py-3">
-                                        <p class="text-primary m-0 fw-bold">Hosts que más la han visitado</p>
+                                <div class="row">
+                                    <div class="col-lg-5 col-xl-5">
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header d-flex justify-content-between align-items-center">
+                                                <h6 class="text-primary fw-bold m-0">Host con mas visitas</h6>
+                                                <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
+                                                    <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
+                                                        <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
+                                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="chart-area"><canvas id="hostVisitas"></canvas></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                                            <table class="table my-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Host</th>
-                                                        <th>Número de visitas</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {% for item in visitasPagina %}
-                                                        <tr>
-                                                            <td><a id="host" href="/host?host={{item[0]}}"> {{item[0]}}</a></td>
-                                                            <td>{{item[1]}}</td>
-                                                        </tr>
-                                                    {% endfor %}
-                                                </tbody>
-                                            </table>
+                                    <div class="col-lg-5 col-xl-7">
+                                        <div class="card shadow mb-3">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Hosts que más la han visitado</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                                    <table class="table my-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Host</th>
+                                                                <th>Número de visitas</th>
+                                                                <th>Tiempo en la Página (seg)</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in visitasPagina %}
+                                                                <tr>
+                                                                    <td><a id="host" href="/host?host={{item[0]}}"> {{item[0]}}</a></td>
+                                                                    <td>{{item[1]["visitas"]}}</td>
+                                                                    <td>{{item[1]["tiempo"]}}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card shadow mb-3">
-                                    <div class="card-header py-3">
-                                        <p class="text-primary m-0 fw-bold">Páginas visitadas posteriormente con más frecuencia</p>
+                                <div class="row">
+                                    <div class="col-lg-5 col-xl-5">
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header d-flex justify-content-between align-items-center">
+                                                <h6 class="text-primary fw-bold m-0">Probabilidad de ser la siguiente página</h6>
+                                                <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
+                                                    <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
+                                                        <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
+                                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="chart-area"><canvas id="paginasPosterior"></canvas></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                                            <table class="table my-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Página posterior</th>
-                                                        <th>Frecuencia</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {% for item in paginasSeguidasOrdenado %}
-                                                        <tr>
-                                                            {% if item[0] == 'fin' %}
-                                                                <td>{{ item[0] }}</td>
-                                                            {% else %}
-                                                                <td><a href="/pagina?pagina={{item[0]}}"> {{item[0]}}</a></td>
-                                                            {% endif %}
-                                                            <td>{{ item[1] }}</td>
-                                                        </tr>
-                                                    {% endfor %}
-                                                </tbody>
-                                            </table>
+                                    <div class="col-lg-5 col-xl-7">
+                                        <div class="card shadow mb-3">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Páginas visitadas posteriormente con más frecuencia</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                                    <table class="table my-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Página posterior</th>
+                                                                <th>Frecuencia</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in paginasSeguidasOrdenado %}
+                                                                <tr>
+                                                                    {% if item[0] == 'fin' %}
+                                                                        <td>{{ item[0] }}</td>
+                                                                    {% else %}
+                                                                        <td><a href="/pagina?pagina={{item[0]}}"> {{item[0]}}</a></td>
+                                                                    {% endif %}
+                                                                    <td>{{ item[1] }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card shadow mb-3">
-                                    <div class="card-header py-3">
-                                        <p class="text-primary m-0 fw-bold">Páginas visitadas anteriormente con más frecuencia</p>
+                                <div class="row">
+                                    <div class="col-lg-5 col-xl-5">
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header d-flex justify-content-between align-items-center">
+                                                <h6 class="text-primary fw-bold m-0">Probabilidad de venir de una página</h6>
+                                                <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
+                                                    <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
+                                                        <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#">&nbsp;Action</a><a class="dropdown-item" href="#">&nbsp;Another action</a>
+                                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#">&nbsp;Something else here</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="chart-area"><canvas id="paginasAnterior"></canvas></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-                                            <table class="table my-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Página anterior</th>
-                                                        <th>Frecuencia</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {% for item in paginasAnterioresOrdenado %}
-                                                        <tr>
-                                                            {% if item[0] == 'fin' or item[0] == 'inicio' %}
-                                                                <td>{{ item[0] }}</td>
-                                                            {% else %}
-                                                                <td><a href="/pagina?pagina={{item[0]}}"> {{item[0]}}</a></td>
-                                                            {% endif %}
-                                                            <td>{{ item[1] }}</td>
-                                                        </tr>
-                                                    {% endfor %}
-                                                </tbody>
-                                            </table>
+                                    <div class="col-lg-5 col-xl-7">
+                                        <div class="card shadow mb-3">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Páginas visitadas anteriormente con más frecuencia</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                                                    <table class="table my-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Página anterior</th>
+                                                                <th>Frecuencia</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in paginasAnterioresOrdenado %}
+                                                                <tr>
+                                                                    {% if item[0] == 'fin' or item[0] == 'inicio' %}
+                                                                        <td>{{ item[0] }}</td>
+                                                                    {% else %}
+                                                                        <td><a href="/pagina?pagina={{item[0]}}"> {{item[0]}}</a></td>
+                                                                    {% endif %}
+                                                                    <td>{{ item[1] }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +202,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
                     <div class="text-center my-auto copyright"><span>Copyright © Web Analyzer 2023</span></div>
@@ -148,24 +209,56 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+    </div>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/graficas.js"></script>
     <script src="static/js/chart.min.js"></script>
     <script src="static/js/bs-init.js"></script>
     <script src="static/js/theme.js"></script>
     <script>
-        {% if porPaginas %}
             window.onload = function() {
-                paginas = [];
-                visitas = [];
-                {% for pagina in porPaginas %}
-                    paginas.push("{{pagina}}");
-                    visitas.push({{porPaginas[pagina]}})
+                paginasAnterior = [];
+                paginasPosterior = [];
+                visitasAnterior = [];
+                visitasPosterior = [];
+                total = 0;
+                {% for item in paginasAnterioresOrdenado %}
+                    total += {{item[1]}};
                 {%endfor%}
 
-                graficaBarras("visitasPorPagina", "Visitas por página", visitas, paginas);
+                {% for item in paginasAnterioresOrdenado %}
+                    paginasAnterior.push("{{item[0]}}");
+                    valor = Math.round((({{item[1]}} / total) * 100) * 100) / 100;
+                    visitasAnterior.push(valor);
+                {%endfor%}
+
+                total = 0;
+
+                {% for item in paginasSeguidasOrdenado %}
+                    total += {{item[1]}};
+                {%endfor%}
+
+                {% for item in paginasSeguidasOrdenado %}
+                    paginasPosterior.push("{{item[0]}}");
+                    valor = Math.round((({{item[1]}} / total) * 100) * 100) / 100;
+                    visitasPosterior.push(valor);
+                {%endfor%}
+
+                visitas = [];
+                host = [];
+                tiempo = [];
+
+                {% for item in visitasPagina %}
+                    host.push('{{item[0]}}');
+                    visitas.push({{item[1]["visitas"]}});
+                    tiempo.push({{item[1]["tiempo"]}} / 60);
+                {% endfor %}
+
+                graficaMixta("hostVisitas", "Visitas por host", "Tiempo por host", visitas,host, tiempo, false);
+                graficaCircular("paginasAnterior", "Veces visitada", visitasAnterior, paginasAnterior);
+                graficaCircular("paginasPosterior", "Veces visitada", visitasPosterior, paginasPosterior);
+
             }
-        {% endif %}
     </script>
 </body>
 

@@ -21,12 +21,32 @@ def paginasVisitadas(content):
 
                     if paginasHosts.keys().__contains__(content[host][usuario]["sesion"][sesion][visita]["pagina"]):
                         if paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]].keys().__contains__(host):
-                            paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]][host] += 1
+                            inicio = datetime.strptime(content[host][usuario]["sesion"][sesion][visita]["fechaHora"], '%d/%b/%Y:%H:%M:%S')
+                            if (visita + 1) != len(content[host][usuario]["sesion"][sesion]):
+                                fin = datetime.strptime(content[host][usuario]["sesion"][sesion][visita + 1]["fechaHora"], '%d/%b/%Y:%H:%M:%S')
+                            else:
+                                fin = inicio
+                            tiempo = (fin - inicio).total_seconds()
+                            paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]][host]["tiempo"] += tiempo
+                            paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]][host]["visitas"] += 1
                         else:
-                            paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]][host] = 1
+                            inicio = datetime.strptime(content[host][usuario]["sesion"][sesion][visita]["fechaHora"],'%d/%b/%Y:%H:%M:%S')
+                            if (visita + 1) != len(content[host][usuario]["sesion"][sesion]):
+                                fin = datetime.strptime(
+                                    content[host][usuario]["sesion"][sesion][visita + 1]["fechaHora"], '%d/%b/%Y:%H:%M:%S')
+                            else:
+                                fin = inicio
+                            tiempo = (fin - inicio).total_seconds()
+                            paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]][host] = {"visitas": 1, "tiempo": tiempo}
                     else:
                         paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]] = dict()
-                        paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]][host] = 1
+                        inicio = datetime.strptime(content[host][usuario]["sesion"][sesion][visita]["fechaHora"],'%d/%b/%Y:%H:%M:%S')
+                        if (visita + 1) != len(content[host][usuario]["sesion"][sesion]):
+                            fin = datetime.strptime(content[host][usuario]["sesion"][sesion][visita + 1]["fechaHora"],'%d/%b/%Y:%H:%M:%S')
+                        else:
+                            fin = inicio
+                        tiempo = (fin - inicio).total_seconds()
+                        paginasHosts[content[host][usuario]["sesion"][sesion][visita]["pagina"]][host] = {"visitas": 1, "tiempo": tiempo}
 
                     if usuariosPaginas.keys().__contains__(usuario):
                         if usuariosPaginas[usuario].keys().__contains__(content[host][usuario]["sesion"][sesion][visita]["pagina"]):
@@ -79,7 +99,7 @@ def paginasVisitadas(content):
 
     totalVisitas = dict(sorted(totalVisitas.items(), key=lambda item: item[1]['visitas'], reverse=True))
     for pagina, visitas in paginasHosts.items():
-        paginasHosts[pagina] = list(sorted(visitas.items(), key=lambda item: item[1], reverse=True))
+        paginasHosts[pagina] = list(sorted(visitas.items(), key=lambda item: item[1]["visitas"], reverse=True))
     return paginasVisitadas, totalVisitas, res, paginasHosts
 
 
@@ -157,7 +177,7 @@ def usuarioDiario(content, tiempoCorte):
                         visitasDiarias[usuario][fecha] = {"numeroVisitas": 1, "visitas": list(), "tiempo": 0}
                         visitasDiarias[usuario][fecha]["visitas"].append(content[host][usuario]["sesion"][sesion]["visitas"][visita])
                     if (visita + 1) < len(content[host][usuario]["sesion"][sesion]["visitas"]):
-                        if (content[host][usuario]["sesion"][sesion]["visitas"][visita + 1]["Timestamp"] - content[host][usuario]["sesion"][sesion]["visitas"][visita]["Timestamp"]) < 1800:
+                        if (content[host][usuario]["sesion"][sesion]["visitas"][visita + 1]["Timestamp"] - content[host][usuario]["sesion"][sesion]["visitas"][visita]["Timestamp"]) < tiempoCorte:
                             visitasDiarias[usuario][fecha]["tiempo"] += content[host][usuario]["sesion"][sesion]["visitas"][visita + 1]["Timestamp"] - content[host][usuario]["sesion"][sesion]["visitas"][visita]["Timestamp"]
 
     for usuario in visitasDiarias:
@@ -326,11 +346,10 @@ def obtenerSeguidas(sesiones):
 
 
 # Analiza el contenido extraido de los logs para extraer conocimiento de los mismos
-def analizar(path,proc, procOriginal, bots):
+def analizar(path,proc, procOriginal, bots, tiempoCorte):
     if not os.path.exists("Logs procesados"):
         print("Lanzar error")
 
-    tiempoCorte = 1800
     procesados = proc
     visitasPagina, totalPaginas, usuariosPaginas, paginasHosts = paginasVisitadas(procesados['contenido'])
     actualizadoSesiones = tiemposSesion(procesados['contenido'])

@@ -1,10 +1,15 @@
 import os
 
 
-def definirColumnas(cadena):
+def definirColumnas(cadena, formatoLog):
     linea = cadena.split("\n")[0]
-    campos = ['host', 'password', 'usuario', 'fechaHora', 'offset', 'metodo', 'pagina', 'protocolo', 'resultado', 'tam',
-              'url', 'cliente', 'ip2', 'responseTime']
+    if formatoLog == "EPA":
+        campos = ['host', 'fechaHora', 'offset', 'metodo', 'pagina', 'protocolo', 'resultado', 'tam']
+    elif formatoLog == "CLF" or formatoLog == "ECLF":
+        campos = ['host', 'password', 'usuario', 'fechaHora', 'offset', 'metodo', 'pagina', 'protocolo', 'resultado', 'tam', 'url', 'cliente', 'ip2', 'responseTime']
+    else:
+        campos = ['host', 'usuario', 'fecha', 'hora', 'servicio', 'servidor', 'servidor IP', 'tiempo uso', 'bytes cliente', 'bytes servidor', 'resultado', 'windows code',
+                  'metodo', 'objetivo', 'parametros']
     sep = linea.split('\"')
     parte1 = ''.join(sep[0:2])
     aux = parte1.replace('"', '').replace('[', '').replace(']', '').split(' ')
@@ -56,12 +61,12 @@ def procesarPerfil(ip, perfiles, columnas):
     perfiles[ip] = nuevaLista
 
 
-def procesarLog(fichero):
+def procesarLog(fichero, formatoLog):
 
     with open(fichero, encoding='utf8') as f:
         cadena = f.read()
 
-    columnas = definirColumnas(cadena)
+    columnas = definirColumnas(cadena, formatoLog)
 
     toRet, registros = definirPerfiles(cadena, columnas)
 

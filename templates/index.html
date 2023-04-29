@@ -301,8 +301,21 @@
                         <br>
                         <input class="form-control" type="file" name="log">
                         <br>
+                        <div class="row">
+                            <div class="col" style="text-align: center">
+                                <select name="formato">
+                                  <option value="EPA">EPA</option>
+                                  <option value="CLF" selected>CLF</option>
+                                  <option value="ECLF">ECLF</option>
+                                    <option value="MIIS">MIIS</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" type="input" name="tiempo" placeholder="1800" value="1800">
+                                <p> Segundos necesarios para sesión</p>
+                            </div>
+                        </div>
                     </div>
-
                     <div class="modal-header">
                         <h4 class="modal-title">O bien, elige un fichero log existente</h4>
                     </div>
