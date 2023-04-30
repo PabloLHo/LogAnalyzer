@@ -2,7 +2,7 @@
 
 Analizador de logs de la web. Proyecto de prácticas de la asignatura Minería Web.
 
-Se puede acceder al sitio web desde http://logAnalyzer.pythonanywhere.com/
+Se puede acceder al sitio web desde http://logAnalyzer12345.pythonanywhere.com/
 
 ## Tecnologías empleadas
 
