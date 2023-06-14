@@ -15,7 +15,7 @@ Para el desarrollo de esta práctica se han utilizado las siguientes herramienta
 Si se desea, se puede ejecutar el código en local. Para ello, tan solo se deben ejecutar los siguientes comandos:
 
 ```bash
-gh repo clone PabloLH0/log_analyzer
+gh repo clone PabloLHo/log_analyzer
 cd LogAnalyzer
 python app.py
 ```
